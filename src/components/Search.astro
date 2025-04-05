@@ -1,0 +1,32 @@
+---
+import { SearchIcon } from "../Icons/Other_Icons";
+---
+
+<div
+    id="search-container"
+    class="max-w-[500px] w-full border-2 border-slate-200 rounded-md bg-white flex gap-2 items-center px-2"
+>
+    <SearchIcon color="#ddd" />
+    <input
+        id="search-input"
+        type="search"
+        class="w-full max-w-full p-2 rounded-md outline-none"
+        placeholder="Search..."
+    />
+    <script>
+        const searchContainers = document.querySelectorAll("#search-container");
+        const searchInputs = document.querySelectorAll("#search-input");
+        if (searchContainers && searchInputs) {
+            searchInputs.forEach((input, index) => {
+                input.addEventListener("focus", () => {
+                    (searchContainers[index] as HTMLElement).style.outline =
+                        "2px solid oklch(70.7% 0.165 254.624)";
+                });
+                input.addEventListener("blur", () => {
+                    (searchContainers[index] as HTMLElement).style.outline =
+                        "none";
+                });
+            });
+        }
+    </script>
+</div>
