@@ -56,3 +56,43 @@ export function SearchIcon({
     </svg>
   );
 }
+export function SideBarIcon({
+  dimension = defaultValues.dimension,
+  color = defaultValues.color,
+}) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={dimension}
+      height={dimension}
+      viewBox="0 0 24 24"
+    >
+      <g fill={color}>
+        <path d="M13 21h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-6z"></path>
+        <path
+          fillRule="evenodd"
+          d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6zm-2.293 7.707a1 1 0 0 0-1.414-1.414l-2 2a1 1 0 0 0 0 1.414l2 2a1 1 0 0 0 1.414-1.414L7.414 12z"
+          clipRule="evenodd"
+        ></path>
+      </g>
+    </svg>
+  );
+}
+export function MenuIcon({
+  dimension = defaultValues.dimension,
+  color = defaultValues.color,
+}) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={dimension}
+      height={dimension}
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill={color}
+        d="M21 4H7v2h14zm0 7H11v2h10zm0 7H7v2h14zM1.99 8.814L3.402 7.4L8 11.996l-4.597 4.596l-1.414-1.414l3.182-3.182z"
+      ></path>
+    </svg>
+  );
+}
