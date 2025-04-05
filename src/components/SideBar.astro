@@ -1,0 +1,78 @@
+---
+import { GithubIcon } from "../Icons/Social_Icons";
+import { IssueIcon } from "../Icons/Other_Icons";
+import {
+    GeneralIcon,
+    AppIcon,
+    SecurityIcon,
+    ToolIcon,
+    CloudIcon,
+} from "../Icons/Categories_Icons";
+const sections: string[] = [
+    "General Terms",
+    "App Terms",
+    "Security Terms",
+    "Tool Terms",
+    "Cloud Terms",
+];
+---
+
+<aside
+    class="fixed left-0 top-0 right-0 bottom-0 w-[200px] bg-slate-50 border-r-2 border-slate-200 flex flex-col"
+>
+    <div
+        class="p-2 flex justify-center items-center border-b-2 border-slate-100"
+    >
+        <h1
+            style={{ fontFamily: "Grand Hotel" }}
+            class="text-[1.5rem] text-blue-400 text-cneter"
+        >
+            SomGlossary
+        </h1>
+    </div>
+    <ul class="flex flex-col gap-3 p-2">
+        {
+            sections &&
+                sections.map((section) => (
+                    <li class="flex gap-2 bg-slate-100 border-2 border-slate-100 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
+                        {section === sections[0] ? (
+                            <GeneralIcon color=" oklch(70.7% 0.165 254.624)" />
+                        ) : section === sections[1] ? (
+                            <AppIcon color=" oklch(70.7% 0.165 254.624)" />
+                        ) : section === sections[2] ? (
+                            <SecurityIcon color=" oklch(70.7% 0.165 254.624)" />
+                        ) : section === sections[3] ? (
+                            <ToolIcon color=" oklch(70.7% 0.165 254.624)" />
+                        ) : section === sections[4] ? (
+                            <CloudIcon color=" oklch(70.7% 0.165 254.624)" />
+                        ) : null}
+                        <a href="" class="font-semibold text-slate-500 text-sm">
+                            {section}
+                        </a>
+                    </li>
+                ))
+        }
+    </ul>
+    <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
+        <a
+            href=""
+            class="p-2 rounded-md bg-blue-500 w-full text-center hover:bg-blue-600"
+        >
+            <button
+                class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
+            >
+                <GithubIcon />
+                Contribute
+            </button>
+        </a>
+        <a
+            href=""
+            class="p-2 rounded-md bg-slate-800 w-full text-center hover:bg-slate-900"
+        >
+            <button class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full">
+                <IssueIcon/>
+                Issue
+            </button>
+        </a>
+    </div>
+</aside>

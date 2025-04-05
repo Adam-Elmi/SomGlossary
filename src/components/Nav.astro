@@ -1,0 +1,21 @@
+---
+import { StarIcon, SearchIcon } from "../Icons/Other_Icons";
+---
+
+<nav class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200">
+    <h1
+        style={{ fontFamily: "Grand Hotel" }}
+        class="text-[1.5rem] text-slate-500 text-cneter flex gap-2 items-center"
+    >
+        <StarIcon />
+        SomG
+    </h1>
+    <div class="w-[500px] border-2 border-slate-200 rounded-md bg-white flex gap-2 items-center px-2">
+        <SearchIcon color="#ddd"/>
+        <input
+            type="search"
+            class="w-full p-2 rounded-md outline-none"
+            placeholder="Search..."
+        />
+    </div>
+</nav>
