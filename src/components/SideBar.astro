@@ -1,6 +1,6 @@
 ---
 import { GithubIcon } from "../Icons/Social_Icons";
-import { IssueIcon } from "../Icons/Other_Icons";
+import { IssueIcon, SideBarIcon } from "../Icons/Other_Icons";
 import {
     GeneralIcon,
     AppIcon,
@@ -18,10 +18,11 @@ const sections: string[] = [
 ---
 
 <aside
-    class="fixed left-0 top-0 right-0 bottom-0 w-[200px] bg-slate-50 border-r-2 border-slate-200 flex flex-col"
+    id="sidebar"
+    class="max-[850px]:hidden fixed left-0 top-0 right-0 bottom-0 w-[200px] bg-slate-50 border-r-2 border-slate-200 flex flex-col"
 >
     <div
-        class="p-2 flex justify-center items-center border-b-2 border-slate-100"
+        class="p-2 flex justify-between items-center border-b-2 border-slate-100 gap-2"
     >
         <h1
             style={{ fontFamily: "Grand Hotel" }}
@@ -29,6 +30,19 @@ const sections: string[] = [
         >
             SomGlossary
         </h1>
+        <button id="close-btn" class="max-[850px]:flex hidden cursor-pointer">
+            <SideBarIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
+        </button>
+        <script>
+          const sideBar = document.getElementById("sidebar");
+          const closeBtn = document.getElementById("close-btn");
+          
+          if(sideBar && closeBtn) {
+            closeBtn.addEventListener("click", () => {
+              sideBar.style.display = "none";
+            })
+          }
+        </script>
     </div>
     <ul class="flex flex-col gap-3 p-2">
         {
@@ -69,8 +83,10 @@ const sections: string[] = [
             href=""
             class="p-2 rounded-md bg-slate-800 w-full text-center hover:bg-slate-900"
         >
-            <button class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full">
-                <IssueIcon/>
+            <button
+                class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
+            >
+                <IssueIcon />
                 Issue
             </button>
         </a>
