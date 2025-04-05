@@ -1,21 +1,30 @@
 ---
-import { StarIcon, SearchIcon } from "../Icons/Other_Icons";
+import { StarIcon, MenuIcon } from "../Icons/Other_Icons";
+import Search from "./Search.astro";
 ---
 
 <nav class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200">
-    <h1
-        style={{ fontFamily: "Grand Hotel" }}
-        class="text-[1.5rem] text-slate-500 text-cneter flex gap-2 items-center"
-    >
-        <StarIcon />
-        SomG
-    </h1>
-    <div class="w-[500px] border-2 border-slate-200 rounded-md bg-white flex gap-2 items-center px-2">
-        <SearchIcon color="#ddd"/>
-        <input
-            type="search"
-            class="w-full p-2 rounded-md outline-none"
-            placeholder="Search..."
-        />
+    <div class="flex gap-4 justify-center items-center">
+        <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
+            <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)"/>
+        </button>
+        <script>
+          const sideBar = document.getElementById("sidebar");
+          const menuBtn = document.getElementById("menu-btn");
+          
+          if(sideBar && menuBtn) {
+            menuBtn.addEventListener("click", () => {
+              sideBar.style.display = "flex";
+            })
+          }
+        </script>
+        <h1
+            style={{ fontFamily: "Grand Hotel" }}
+            class="text-[1.5rem] text-slate-500 text-cneter flex gap-2 items-center"
+        >
+            <StarIcon />
+            SomG
+        </h1>
     </div>
+    <Search/>
 </nav>
