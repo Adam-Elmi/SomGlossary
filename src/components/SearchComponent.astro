@@ -1,0 +1,44 @@
+---
+import SearchIcon from "../icons/SearchIcon.astro";
+const { maxWidth = "500px", showButton = false } = Astro.props;
+---
+
+<div
+    style={{ maxWidth: maxWidth ? maxWidth : "500px" }}
+    id="search-container"
+    class="w-full border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
+>
+    <span class="px-2">
+        <SearchIcon color="#ddd" />
+    </span>
+    <input
+        readonly="true"
+        id="search-input"
+        type="search"
+        class="w-full max-w-full p-2 rounded-md outline-none"
+        placeholder="Search..."
+    />
+    {
+        showButton ? (
+            <button class="bg-blue-500 font-semibold p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border border-slate-200 italic">
+                Search
+            </button>
+        ) : null
+    }
+    <script>
+        const searchContainers = document.querySelectorAll("#search-container");
+        const searchInputs = document.querySelectorAll("#search-input");
+        if (searchContainers && searchInputs) {
+            searchInputs.forEach((input, index) => {
+                input.addEventListener("focus", () => {
+                    (searchContainers[index] as HTMLElement).style.outline =
+                        "2px solid oklch(70.7% 0.165 254.624)";
+                });
+                input.addEventListener("blur", () => {
+                    (searchContainers[index] as HTMLElement).style.outline =
+                        "none";
+                });
+            });
+        }
+    </script>
+</div>
