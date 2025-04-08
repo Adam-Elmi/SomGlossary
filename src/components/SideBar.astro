@@ -1,94 +1,151 @@
 ---
-import { GithubIcon } from "../Icons/Social_Icons";
-import { IssueIcon, SideBarIcon } from "../Icons/Other_Icons";
-import {
-    GeneralIcon,
-    AppIcon,
-    SecurityIcon,
-    ToolIcon,
-    CloudIcon,
-} from "../Icons/Categories_Icons";
+import SideBarIcon from "../icons/SideBarIcon.astro";
+import IssueIcon from "../icons/IssueIcon.astro";
+import GithubIcon from "../icons/GithubIcon.astro";
 const sections: string[] = [
     "General Terms",
     "App Terms",
     "Security Terms",
     "Tool Terms",
-    "Cloud Terms",
+    "Cloud Terms Cloud Terms",
+    "General Terms",
+    "Prototype-based Programming",
+    "Security Terms",
+    "Tool Terms",
+    "Cloud Terms Cloud Terms",
+    "General Terms",
+    "App Terms",
+    "Security Terms",
+    "Tool Terms",
+    "Cloud Terms Cloud Terms",
+    "General Terms",
+    "App Terms",
+    "Security Terms",
+    "Tool Terms",
+    "Adam",
 ];
+import FilterIcon from "../icons/FilterIcon.astro";
+import DocIcon from "../icons/DocIcon.astro";
 ---
 
-<aside
-    id="sidebar"
-    class="max-[850px]:hidden fixed left-0 top-0 right-0 bottom-0 w-[200px] bg-slate-50 border-r-2 border-slate-200 flex flex-col"
+<div
+    id="sidebar-parent"
+    class="max-[850px]:hidden fixed left-0 top-0 right-0 bottom-0 w-[300px] max-[850px]:w-full bg-white/10 backdrop-blur-md flex flex-col"
 >
-    <div
-        class="p-2 flex justify-between items-center border-b-2 border-slate-100 gap-2"
+    <aside
+        id="sidebar"
+        class="h-full bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
     >
-        <h1
-            style={{ fontFamily: "Grand Hotel" }}
-            class="text-[1.5rem] text-blue-400 text-cneter"
+        <div
+            class="p-2 flex justify-between items-center border-b-2 border-slate-100 gap-2"
         >
-            SomGlossary
-        </h1>
-        <button id="close-btn" class="max-[850px]:flex hidden cursor-pointer">
-            <SideBarIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
-        </button>
-        <script>
-          const sideBar = document.getElementById("sidebar");
-          const closeBtn = document.getElementById("close-btn");
-          
-          if(sideBar && closeBtn) {
-            closeBtn.addEventListener("click", () => {
-              sideBar.style.display = "none";
-            })
-          }
-        </script>
-    </div>
-    <ul class="flex flex-col gap-3 p-2">
-        {
-            sections &&
-                sections.map((section) => (
-                    <li class="flex gap-2 bg-slate-100 border-2 border-slate-100 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
-                        {section === sections[0] ? (
-                            <GeneralIcon color=" oklch(70.7% 0.165 254.624)" />
-                        ) : section === sections[1] ? (
-                            <AppIcon color=" oklch(70.7% 0.165 254.624)" />
-                        ) : section === sections[2] ? (
-                            <SecurityIcon color=" oklch(70.7% 0.165 254.624)" />
-                        ) : section === sections[3] ? (
-                            <ToolIcon color=" oklch(70.7% 0.165 254.624)" />
-                        ) : section === sections[4] ? (
-                            <CloudIcon color=" oklch(70.7% 0.165 254.624)" />
-                        ) : null}
-                        <a href="" class="font-semibold text-slate-500 text-sm">
-                            {section}
-                        </a>
-                    </li>
-                ))
+            <div id="filter-container" class="w-full border-2 border-slate-300 rounded-md flex gap-2 justify-center items-center">
+                <FilterIcon dimension = "35" color = "#cad5e2"/>
+                <input id="filter-input" type="search" placeholder="Filter" class="p-2 w-full outline-none">
+            </div>
+            <button
+                id="close-btn"
+                class="max-[850px]:flex hidden cursor-pointer"
+            >
+                <SideBarIcon dimension={30} color="#122" />
+            </button>
+            <script>
+                const sideBarParent = document.getElementById("sidebar-parent");
+                const sideBar = document.getElementById("sidebar");
+                const closeBtn = document.getElementById("close-btn");
+
+                if (sideBar) {
+                    sideBar.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                    });
+                }
+
+                function handleClose() {
+                    if (sideBar) {
+                        sideBar.style.transform = "translateX(-300px)";
+                    }
+                    setTimeout(() => {
+                        if (sideBarParent) {
+                            sideBarParent.style.display = "none";
+                        }
+                    }, 500);
+                }
+                if (sideBarParent && closeBtn) {
+                    closeBtn.addEventListener("click", handleClose);
+                    sideBarParent.addEventListener("click", handleClose);
+                    window.addEventListener("resize", () => {
+                        if (window.innerWidth > 850) {
+                            if (sideBarParent && sideBar) {
+                              sideBar.style.transform = "translateX(0)";
+                                sideBarParent.style.display = "flex";
+                            }
+                        }
+                    });
+                }
+                const filterContainer = document.getElementById("filter-container");
+                const filterInput = document.getElementById("filter-input");
+                const filterIcon = document.getElementById("filter-icon");
+                if(filterContainer && filterInput) {
+                  filterInput.onfocus = () => {
+                    filterContainer.style.outline = "2px solid oklch(70.7% 0.165 254.624)";
+                  }
+                  filterInput.onblur = () => {
+                    filterContainer.style.outline = "none";
+                  }
+                  if(filterIcon) filterIcon.onclick = () => filterInput ? filterInput.focus() : null;
+                }
+            </script>
+        </div>
+        <ul class="flex flex-col gap-3 p-2 overflow-auto">
+            {
+                sections &&
+                    sections.map((section) => (
+                        <li class="flex gap-2 items-center min-h-[50px] bg-slate-100 border-2 border-slate-100 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
+                            <DocIcon color=" oklch(70.7% 0.165 254.624)"/>
+                            <a
+                                href=""
+                                title={section}
+                                class="font-semibold text-slate-700 text-sm"
+                            >
+                                {section}
+                            </a>
+                        </li>
+                    ))
+            }
+        </ul>
+        <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
+            <a
+                href=""
+                class="p-2 rounded-md bg-blue-500 w-full text-center hover:bg-blue-600"
+            >
+                <button
+                    class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
+                >
+                    <GithubIcon />
+                    Contribute
+                </button>
+            </a>
+            <a
+                href=""
+                class="p-2 rounded-md bg-slate-800 w-full text-center hover:bg-slate-900"
+            >
+                <button
+                    class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
+                >
+                    <IssueIcon />
+                    Issue
+                </button>
+            </a>
+        </div>
+    </aside>
+</div>
+
+<style is:inline>
+    #sidebar {
+        transition: transform 0.5s ease-in-out;
+        @media (max-width: 850px) {
+            #sidebar {
+                transform: translateX(-300px);
+            }
         }
-    </ul>
-    <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
-        <a
-            href=""
-            class="p-2 rounded-md bg-blue-500 w-full text-center hover:bg-blue-600"
-        >
-            <button
-                class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
-            >
-                <GithubIcon />
-                Contribute
-            </button>
-        </a>
-        <a
-            href=""
-            class="p-2 rounded-md bg-slate-800 w-full text-center hover:bg-slate-900"
-        >
-            <button
-                class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
-            >
-                <IssueIcon />
-                Issue
-            </button>
-        </a>
-    </div>
-</aside>
+</style>
