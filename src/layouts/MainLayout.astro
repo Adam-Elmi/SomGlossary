@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import MainHead from "./MainHead.astro";
 import MainFooter from "./MainFooter.astro";
+import ResultBackground from "../components/ResultBackground.astro";
 const { title } = Astro.props;
 ---
 
@@ -11,6 +12,24 @@ const { title } = Astro.props;
     <body>
         <main>
             <slot />
+            <ResultBackground />
+            <script>
+                const searchInputs = document.querySelectorAll("#search-input");
+                const resultBackground =
+                    document.getElementById("result-background");
+                if (searchInputs && resultBackground) {
+                    resultBackground.style.transform = "translateY(-100vh)";
+                    searchInputs.forEach((input) => {
+                        input.addEventListener("focus", () => {
+                            resultBackground.style.display = "flex";
+                            setTimeout(() => {
+                                resultBackground.style.transform =
+                                    "translateY(0)";
+                            }, 100);
+                        });
+                    });
+                }
+            </script>
         </main>
     </body><MainFooter />
 </html>
