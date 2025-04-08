@@ -1,30 +1,38 @@
 ---
-import { StarIcon, MenuIcon } from "../Icons/Other_Icons";
-import Search from "./Search.astro";
+import MenuIcon from "../icons/MenuIcon.astro";
+import SearchComponent from "./SearchComponent.astro";
 ---
 
-<nav class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200">
+<nav
+    class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
+>
     <div class="flex gap-4 justify-center items-center">
         <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
-            <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)"/>
+            <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
         </button>
         <script>
-          const sideBar = document.getElementById("sidebar");
-          const menuBtn = document.getElementById("menu-btn");
-          
-          if(sideBar && menuBtn) {
-            menuBtn.addEventListener("click", () => {
-              sideBar.style.display = "flex";
-            })
-          }
+            const sideBarParent = document.getElementById("sidebar-parent");
+            const sideBar = document.getElementById("sidebar");
+            const menuBtn = document.getElementById("menu-btn");
+
+            if (sideBarParent && menuBtn) {
+                menuBtn.addEventListener("click", () => {
+                    if (sideBar) {
+                        sideBar.style.transform = "translateX(-300px)";
+                        setTimeout(() => {
+                            sideBar.style.transform = "translateX(0)";
+                        }, 100);
+                    }
+                    sideBarParent.style.display = "flex";
+                });
+            }
         </script>
         <h1
             style={{ fontFamily: "Grand Hotel" }}
-            class="text-[1.5rem] text-slate-500 text-cneter flex gap-2 items-center"
+            class="text-[1.5rem] text-slate-700 text-cneter flex gap-2 items-center"
         >
-            <StarIcon />
-            SomG
+            SomGlossary
         </h1>
     </div>
-    <Search/>
+    <SearchComponent maxWidth="200px" />
 </nav>
