@@ -1,9 +1,14 @@
 ---
-import MenuIcon from "../icons/MenuIcon.astro";
 import SearchComponent from "./SearchComponent.astro";
+import MenuIcon from "../icons/MenuIcon.astro";
+import ThemeIcon from "../icons/ThemeIcon.astro";
+import MoonIcon from "../icons/MoonIcon.astro";
+import SunIcon from "../icons/SunIcon.astro";
+import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
 ---
 
 <nav
+    id="nav-bar"
     class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
 >
     <div class="flex gap-4 justify-center items-center">
@@ -11,6 +16,7 @@ import SearchComponent from "./SearchComponent.astro";
             <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
         </button>
         <script>
+          import setTheme from "../scripts/setTheme";
             const sideBarParent = document.getElementById("sidebar-parent");
             const sideBar = document.getElementById("sidebar");
             const menuBtn = document.getElementById("menu-btn");
@@ -26,6 +32,29 @@ import SearchComponent from "./SearchComponent.astro";
                     sideBarParent.style.display = "flex";
                 });
             }
+            const themeContainer = document.getElementById("theme-container");
+            const themeBtn = document.getElementById("theme-btn");
+            let isVisible = false;
+            if (themeContainer && themeBtn) {
+                themeBtn.addEventListener("click", () => {
+                    setTheme()
+                    isVisible = !isVisible;
+                    if (isVisible) {
+                        (themeContainer as HTMLDivElement).style.display =
+                            "flex";
+                    } else {
+                        (themeContainer as HTMLDivElement).style.display =
+                            "none";
+                    }
+                });
+                const instances = SVGElement || SVGPathElement || SVGGElement;
+                window.addEventListener("click", (e) => {
+                  if (!(e.target instanceof instances) && e.target !== themeBtn ) {
+                    isVisible = false;
+                    (themeContainer as HTMLDivElement).style.display ="none";
+                  }
+                });
+            }
         </script>
         <h1
             style={{ fontFamily: "Grand Hotel" }}
@@ -34,5 +63,33 @@ import SearchComponent from "./SearchComponent.astro";
             SomGlossary
         </h1>
     </div>
-    <SearchComponent maxWidth="200px" />
+    <div class="relative flex items-center gap-5 w-full justify-end">
+        <SearchComponent maxWidth="50px" placeholder="" />
+        <button id="theme-btn" title="Theme" class="cursor-pointer">
+            <DefaultModeIcon color="#aad" dimension="32" />
+        </button>
+        <div
+            id="theme-container"
+            class="hidden absolute top-[120%] right-0 flex-col gap-4 bg-white p-2 border-2 border-indigo-200 rounded-md shadow-md"
+        >
+            <button
+                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
+            >
+                <SunIcon dimension="28" color="oklch(85.2% 0.199 91.936)" />
+                Light Mode
+            </button>
+            <button
+                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
+            >
+                <MoonIcon dimenstion="20" color="oklch(58.5% 0.233 277.117)" />
+                Dark Mode
+            </button>
+            <button
+                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
+            >
+                <DefaultModeIcon color="#aad" />
+                System default
+            </button>
+        </div>
+    </div>
 </nav>
