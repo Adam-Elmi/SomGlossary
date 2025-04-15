@@ -1,9 +1,9 @@
 @import "tailwindcss";
-body {
-    background-color: #fafafc;
+body{
     font-family: "roboto", Arial, sans-serif;
     min-height: 100vh;
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
 }
