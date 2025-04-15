@@ -1,6 +1,6 @@
 ---
 import SearchIcon from "../icons/SearchIcon.astro";
-const { maxWidth = "500px", showButton = false } = Astro.props;
+const { maxWidth = "500px", showButton = false, placeholder = "Search..." } = Astro.props;
 ---
 
 <div
@@ -8,7 +8,7 @@ const { maxWidth = "500px", showButton = false } = Astro.props;
     id="search-container"
     class="w-full border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
 >
-    <span class="px-2">
+    <span id="search-icon" class="px-2 cursor-pointer">
         <SearchIcon color="#ddd" />
     </span>
     <input
@@ -16,7 +16,7 @@ const { maxWidth = "500px", showButton = false } = Astro.props;
         id="search-input"
         type="search"
         class="w-full max-w-full p-2 rounded-md outline-none"
-        placeholder="Search..."
+        placeholder={placeholder}
     />
     {
         showButton ? (
