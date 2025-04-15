@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme = "default">
     <MainHead {title} />
     <body>
         <main>
@@ -15,23 +15,32 @@ const { title } = Astro.props;
             <ResultBackground />
             <script>
                 const searchInputs = document.querySelectorAll("#search-input");
+                const searchIcons = document.querySelectorAll("#search-icon");
                 const resultBackground =
                     document.getElementById("result-background");
                 if (searchInputs && resultBackground) {
                     resultBackground.style.transform = "translateY(-100vh)";
                     searchInputs.forEach((input) => {
                         input.addEventListener("focus", () => {
-                            resultBackground.style.display = "flex";
-                            setTimeout(() => {
-                                resultBackground.style.transform =
-                                    "translateY(0)";
-                            }, 100);
+                            showSearchBar(resultBackground);
+                        });
+                    });
+                    searchIcons.forEach((icon) => {
+                        icon.addEventListener("click", () => {
+                            showSearchBar(resultBackground);
                         });
                     });
                 }
+                function showSearchBar(resultBackground: HTMLElement) {
+                    resultBackground.style.display = "flex";
+                    setTimeout(() => {
+                        resultBackground.style.transform = "translateY(0)";
+                    }, 100);
+                }
             </script>
         </main>
-    </body><MainFooter />
+    </body>
+    <MainFooter />
 </html>
 
 <style>
