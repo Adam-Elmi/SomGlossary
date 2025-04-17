@@ -9,14 +9,13 @@ import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
 
 <nav
     id="nav-bar"
-    class="flex gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
+    class="flex dark:bg-slate-900 dark:border-b-slate-800 gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
 >
     <div class="flex gap-4 justify-center items-center">
         <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
             <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
         </button>
         <script>
-          import setTheme from "../scripts/setTheme";
             const sideBarParent = document.getElementById("sidebar-parent");
             const sideBar = document.getElementById("sidebar");
             const menuBtn = document.getElementById("menu-btn");
@@ -37,7 +36,6 @@ import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
             let isVisible = false;
             if (themeContainer && themeBtn) {
                 themeBtn.addEventListener("click", () => {
-                    setTheme()
                     isVisible = !isVisible;
                     if (isVisible) {
                         (themeContainer as HTMLDivElement).style.display =
@@ -49,16 +47,54 @@ import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
                 });
                 const instances = SVGElement || SVGPathElement || SVGGElement;
                 window.addEventListener("click", (e) => {
-                  if (!(e.target instanceof instances) && e.target !== themeBtn ) {
-                    isVisible = false;
-                    (themeContainer as HTMLDivElement).style.display ="none";
-                  }
+                    if (
+                        !(e.target instanceof instances) &&
+                        e.target !== themeBtn
+                    ) {
+                        isVisible = false;
+                        (themeContainer as HTMLDivElement).style.display =
+                            "none";
+                    }
                 });
+
+                const lightModeBtn = document.getElementById("light-mode-btn");
+                const darkModeBtn = document.getElementById("dark-mode-btn");
+                const defaultModeBtn =
+                    document.getElementById("default-mode-btn");
+
+                function store_theme(themeValue: string) {
+                    if (themeValue) {
+                         document.documentElement.setAttribute("data-theme", themeValue);
+                        localStorage.setItem("theme", themeValue);
+                    }
+                }
+
+                function changeTheme(e: Event) {
+                    const target = e.target as HTMLElement;
+                    switch (target.id) {
+                        case "light-mode-btn":
+                            store_theme("light");
+                            break;
+                        case "dark-mode-btn":
+                            store_theme("dark");
+                            break;
+                        default:
+                            const isDarkMode: boolean = window.matchMedia(
+                                "(prefers-color-scheme: dark)",
+                            ).matches;
+                            store_theme(isDarkMode ? "dark" : "light");
+                            break;
+                    }
+                    
+                }
+                lightModeBtn?.addEventListener("click", changeTheme);
+                darkModeBtn?.addEventListener("click", changeTheme);
+                defaultModeBtn?.addEventListener("click", changeTheme);
             }
         </script>
         <h1
             style={{ fontFamily: "Grand Hotel" }}
-            class="text-[1.5rem] text-slate-700 text-cneter flex gap-2 items-center"
+            class="text-[1.5rem] dark:text-white text-slate-700 text-cneter flex gap-2 items-center"
         >
             SomGlossary
         </h1>
@@ -70,21 +106,24 @@ import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
         </button>
         <div
             id="theme-container"
-            class="hidden absolute top-[120%] right-0 flex-col gap-4 bg-white p-2 border-2 border-indigo-200 rounded-md shadow-md"
+            class="hidden dark:bg-slate-900 dark:text-white absolute top-[120%] right-0 flex-col gap-4 bg-white p-2 border-2 border-indigo-200 rounded-md shadow-md"
         >
             <button
+                id="light-mode-btn"
                 class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
             >
                 <SunIcon dimension="28" color="oklch(85.2% 0.199 91.936)" />
                 Light Mode
             </button>
             <button
+                id="dark-mode-btn"
                 class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
             >
                 <MoonIcon dimenstion="20" color="oklch(58.5% 0.233 277.117)" />
                 Dark Mode
             </button>
             <button
+                id="default-mode-btn"
                 class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
             >
                 <DefaultModeIcon color="#aad" />
