@@ -26,6 +26,7 @@ const sections: string[] = [
 ];
 import FilterIcon from "../icons/FilterIcon.astro";
 import DocIcon from "../icons/DocIcon.astro";
+import mode from "../scripts/checkMode";
 ---
 
 <div
@@ -34,14 +35,14 @@ import DocIcon from "../icons/DocIcon.astro";
 >
     <aside
         id="sidebar"
-        class="h-full bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
+        class="h-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
     >
         <div
-            class="p-2 flex justify-between items-center border-b-2 border-slate-100 gap-2"
+            class="p-2 dark:border-slate-800 flex justify-between items-center border-b-2 border-slate-100 gap-2"
         >
-            <div id="filter-container" class="w-full border-2 border-slate-300 rounded-md flex gap-2 justify-center items-center">
+            <div id="filter-container" class="w-full dark:bg-slate-700 dark:border-slate-800 border-2 border-slate-300 rounded-md flex gap-2 justify-center items-center">
                 <FilterIcon dimension = "35" color = "#cad5e2"/>
-                <input id="filter-input" type="search" placeholder="Filter" class="p-2 w-full outline-none">
+                <input id="filter-input" type="search" placeholder="Filter" class="p-2 dark:text-slate-50 w-full outline-none">
             </div>
             <button
                 id="close-btn"
@@ -100,12 +101,12 @@ import DocIcon from "../icons/DocIcon.astro";
             {
                 sections &&
                     sections.map((section) => (
-                        <li class="flex gap-2 items-center min-h-[50px] bg-slate-100 border-2 border-slate-100 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
-                            <DocIcon color=" oklch(70.7% 0.165 254.624)"/>
+                        <li class="flex dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:text-white text-blue-500 dark:hover:bg-blue-700/20 dark:border-slate-500 gap-2 items-center min-h-[50px] bg-slate-100 border-[1.5px] border-gray-200 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
+                            <DocIcon/>
                             <a
                                 href=""
                                 title={section}
-                                class="font-semibold text-slate-700 text-sm"
+                                class="font-semibold dark:text-white text-slate-700 text-sm"
                             >
                                 {section}
                             </a>
@@ -116,7 +117,7 @@ import DocIcon from "../icons/DocIcon.astro";
         <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
             <a
                 href=""
-                class="p-2 rounded-md bg-blue-500 w-full text-center hover:bg-blue-600"
+                class="p-2 rounded-md bg-blue-500 w-full dark:bg-blue-600 dark:hover:bg-blue-700 text-center hover:bg-blue-600"
             >
                 <button
                     class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
@@ -127,7 +128,7 @@ import DocIcon from "../icons/DocIcon.astro";
             </a>
             <a
                 href=""
-                class="p-2 rounded-md bg-slate-800 w-full text-center hover:bg-slate-900"
+                class="p-2 rounded-md bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-800 w-full text-center hover:bg-slate-900"
             >
                 <button
                     class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
