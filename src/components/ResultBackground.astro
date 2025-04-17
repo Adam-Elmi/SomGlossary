@@ -7,13 +7,13 @@ import ResultContainer from "./ResultContainer.astro";
 <div
     id="result-background"
     style="transition: transform 1s ease-in-out;"
-    class="pattern hidden fixed top-0 right-0 bottom-0 left-0 z-100 w-full min-h-screen p-4 bg-white/10 backdrop-blur-lg flex-col gap-4 justify-center items-center"
+    class="pattern dark:bg-slate-900/10 hidden fixed top-0 right-0 bottom-0 left-0 z-100 w-full min-h-screen p-4 bg-white/10 backdrop-blur-lg flex-col gap-4 justify-center items-center"
 >
-    <button id="bg-close-btn" class="absolute top-2 right-2 cursor-pointer">
-        <CloseIcon dimension={35} color="oklch(62.3% 0.214 259.815)" />
+    <button id="bg-close-btn" class="absolute text-blue-500 dark:text-white top-2 right-2 cursor-pointer">
+        <CloseIcon dimension={35}/>
     </button>
     <div
-        class="max-w-[900px] w-full mt-10 border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
+        class="max-w-[900px] dark:bg-slate-700 dark:border-slate-800 w-full mt-10 border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
     >
         <span class="px-2">
             <SearchIcon color="#ddd" />
@@ -21,7 +21,7 @@ import ResultContainer from "./ResultContainer.astro";
         <input
             id="functional-search-input"
             type="search"
-            class="w-full max-w-full p-2 rounded-md outline-none"
+            class="w-full dark:text-white max-w-full p-2 rounded-md outline-none"
             placeholder="Search..."
         />
         <script>
@@ -53,7 +53,7 @@ import ResultContainer from "./ResultContainer.astro";
             }
         </script>
         <button
-            class="bg-blue-500 font-semibold p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border border-slate-200 italic"
+            class="bg-blue-500 dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:border-slate-500 font-semibold p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border border-slate-200 italic"
         >
             Search
         </button>
@@ -61,9 +61,9 @@ import ResultContainer from "./ResultContainer.astro";
     <ResultContainer />
     <button
         id="bg-close-btn"
-        class="bg-blue-500 shadow-md text-white text-lg font-semibold italic m-auto rounded-lg cursor-pointer flex justify-center items-center gap-2 border-2 border-slate-200 w-fit px-4 py-2"
+        class="bg-blue-500 dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:border-slate-500 shadow-md text-white text-lg font-semibold italic m-auto rounded-lg cursor-pointer flex justify-center items-center gap-2 border-2 border-slate-200 w-fit px-4 py-2"
     >
         Close
-        <CloseIcon dimension={35} color="#fff" />
+        <CloseIcon dimension={35} color = "#fff"/>
     </button>
 </div>
