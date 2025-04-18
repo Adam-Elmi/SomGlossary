@@ -2,31 +2,10 @@
 import SideBarIcon from "../icons/SideBarIcon.astro";
 import IssueIcon from "../icons/IssueIcon.astro";
 import GithubIcon from "../icons/GithubIcon.astro";
-const sections: string[] = [
-    "General Terms",
-    "App Terms",
-    "Security Terms",
-    "Tool Terms",
-    "Cloud Terms Cloud Terms",
-    "General Terms",
-    "Prototype-based Programming",
-    "Security Terms",
-    "Tool Terms",
-    "Cloud Terms Cloud Terms",
-    "General Terms",
-    "App Terms",
-    "Security Terms",
-    "Tool Terms",
-    "Cloud Terms Cloud Terms",
-    "General Terms",
-    "App Terms",
-    "Security Terms",
-    "Tool Terms",
-    "Adam",
-];
-import FilterIcon from "../icons/FilterIcon.astro";
 import DocIcon from "../icons/DocIcon.astro";
-import mode from "../scripts/checkMode";
+import ArrowIcon from "../icons/ArrowIcon.astro";
+import Logo from "../assets/somglossary.svg";
+import sections from "../helpers/getSections";
 ---
 
 <div
@@ -35,85 +14,70 @@ import mode from "../scripts/checkMode";
 >
     <aside
         id="sidebar"
-        class="h-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
+        class="h-full max-[450px]:w-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
     >
         <div
             class="p-2 dark:border-slate-800 flex justify-between items-center border-b-2 border-slate-100 gap-2"
         >
-            <div id="filter-container" class="w-full dark:bg-slate-700 dark:border-slate-800 border-2 border-slate-300 rounded-md flex gap-2 justify-center items-center">
-                <FilterIcon dimension = "35" color = "#cad5e2"/>
-                <input id="filter-input" type="search" placeholder="Filter" class="p-2 dark:text-slate-50 w-full outline-none">
-            </div>
+            <h1
+                style={{ fontFamily: "Grand Hotel" }}
+                class="text-[1.5rem] dark:text-white text-slate-700 text-cneter flex gap-2 items-center"
+            >
+                <Logo width={24} height={24} />
+                SomGlossary
+            </h1>
             <button
                 id="close-btn"
                 class="max-[850px]:flex hidden cursor-pointer"
             >
-                <SideBarIcon dimension={30} color="#122" />
+                <span class="text-blue-500">
+                    <SideBarIcon dimension={30}/>
+                </span>
             </button>
-            <script>
-                const sideBarParent = document.getElementById("sidebar-parent");
-                const sideBar = document.getElementById("sidebar");
-                const closeBtn = document.getElementById("close-btn");
-
-                if (sideBar) {
-                    sideBar.addEventListener("click", (event) => {
-                        event.stopPropagation();
-                    });
-                }
-
-                function handleClose() {
-                    if (sideBar) {
-                        sideBar.style.transform = "translateX(-300px)";
-                    }
-                    setTimeout(() => {
-                        if (sideBarParent) {
-                            sideBarParent.style.display = "none";
-                        }
-                    }, 500);
-                }
-                if (sideBarParent && closeBtn) {
-                    closeBtn.addEventListener("click", handleClose);
-                    sideBarParent.addEventListener("click", handleClose);
-                    window.addEventListener("resize", () => {
-                        if (window.innerWidth > 850) {
-                            if (sideBarParent && sideBar) {
-                              sideBar.style.transform = "translateX(0)";
-                                sideBarParent.style.display = "flex";
-                            }
-                        }
-                    });
-                }
-                const filterContainer = document.getElementById("filter-container");
-                const filterInput = document.getElementById("filter-input");
-                const filterIcon = document.getElementById("filter-icon");
-                if(filterContainer && filterInput) {
-                  filterInput.onfocus = () => {
-                    filterContainer.style.outline = "2px solid oklch(70.7% 0.165 254.624)";
-                  }
-                  filterInput.onblur = () => {
-                    filterContainer.style.outline = "none";
-                  }
-                  if(filterIcon) filterIcon.onclick = () => filterInput ? filterInput.focus() : null;
-                }
-            </script>
         </div>
-        <ul id="list-container" class="flex flex-col gap-3 p-2 overflow-auto">
+        <div id="list-container" class="flex flex-col gap-3 p-2 overflow-auto">
             {
-                sections &&
-                    sections.map((section) => (
-                        <li class="flex dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:text-white text-blue-500 dark:hover:bg-blue-700/20 dark:border-slate-500 gap-2 items-center min-h-[50px] bg-slate-100 border-[1.5px] border-gray-200 cursor-pointer hover:bg-blue-100 p-2 rounded-md">
-                            <DocIcon/>
-                            <a
-                                href=""
-                                title={section}
-                                class="font-semibold dark:text-white text-slate-700 text-sm"
-                            >
-                                {section}
-                            </a>
-                        </li>
-                    ))
+                sections
+                    ? sections.map((section, i) => (
+                          <div class="flex flex-col gap-2 dark:bg-blue-900/20 dark:border-blue-500/20 bg-blue-100/50 p-2 px-3 rounded-md border-2 border-blue-100/30">
+                              <button
+                                  id="header-btn"
+                                  class="cursor-pointer dark:text-slate-100 font-semibold text-slate-600 flex gap-2 justify-between items-center"
+                              >
+                                  {section.header}
+                                  <span>
+                                      <ArrowIcon />
+                                  </span>
+                              </button>
+                              <ul
+                                  id="content-list"
+                                  style={{
+                                      borderColor:
+                                          section.contents.length > 0
+                                              ? "oklch(80.9% 0.105 251.813);"
+                                              : "transparent",
+                                  }}
+                                  class="overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
+                              >
+                                  {section.contents.map((content) => (
+                                      <li class="p-1 hover:bg-blue-200/50 rounded-md">
+                                          <a
+                                              href=""
+                                              class="dark:text-slate-50 text-slate-800 flex gap-2 items-center italic"
+                                          >
+                                              <span class="text-blue-400">
+                                                  <DocIcon />
+                                              </span>
+                                              {content}
+                                          </a>
+                                      </li>
+                                  ))}
+                              </ul>
+                          </div>
+                      ))
+                    : null
             }
-        </ul>
+        </div>
         <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
             <a
                 href=""
@@ -146,7 +110,9 @@ import mode from "../scripts/checkMode";
         transition: transform 0.5s ease-in-out;
         @media (max-width: 850px) {
             #sidebar {
-                transform: translateX(-300px);
+                transform: translateX(-450px);
             }
         }
 </style>
+<script src="../js/handleSideBar.js"></script>
+<script src="../js/expandContent.js"></script>
