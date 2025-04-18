@@ -1,0 +1,11 @@
+---
+const { italic = false, bold = false, title } = Astro.props;
+---
+
+<span
+    style={{ fontWeight: bold && "bold", fontStyle: italic && "italic", cursor: title && "pointer"}}
+    class="dark:bg-slate-700 bg-[#dbeafe] p-1 mx-[2px] rounded-md"
+    {title}
+>
+        <slot />
+</span>
