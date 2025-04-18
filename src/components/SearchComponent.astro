@@ -1,6 +1,10 @@
 ---
 import SearchIcon from "../icons/SearchIcon.astro";
-const { maxWidth = "500px", showButton = false, placeholder = "Search..." } = Astro.props;
+const {
+    maxWidth = "500px",
+    showButton = false,
+    placeholder = "Search...",
+} = Astro.props;
 ---
 
 <div
@@ -25,20 +29,5 @@ const { maxWidth = "500px", showButton = false, placeholder = "Search..." } = As
             </button>
         ) : null
     }
-    <script>
-        const searchContainers = document.querySelectorAll("#search-container");
-        const searchInputs = document.querySelectorAll("#search-input");
-        if (searchContainers && searchInputs) {
-            searchInputs.forEach((input, index) => {
-                input.addEventListener("focus", () => {
-                    (searchContainers[index] as HTMLElement).style.outline =
-                        "2px solid oklch(70.7% 0.165 254.624)";
-                });
-                input.addEventListener("blur", () => {
-                    (searchContainers[index] as HTMLElement).style.outline =
-                        "none";
-                });
-            });
-        }
-    </script>
 </div>
+<script src="../js/handleSearch.js"></script>
