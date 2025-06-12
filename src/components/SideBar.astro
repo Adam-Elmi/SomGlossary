@@ -19,13 +19,15 @@ import sections from "../helpers/getSections";
         <div
             class="p-2 dark:border-slate-800 flex justify-between items-center border-b-2 border-slate-100 gap-2"
         >
-            <h1
-                style={{ fontFamily: "Grand Hotel" }}
-                class="text-[1.5rem] dark:text-white text-slate-700 text-cneter flex gap-2 items-center"
-            >
-                <Logo width={24} height={24} />
-                SomGlossary
-            </h1>
+            <a href="/">
+                <h1
+                    style={{ fontFamily: "Grand Hotel" }}
+                    class="text-[1.5rem] dark:text-white text-slate-700 text-cneter flex gap-2 items-center"
+                >
+                    <Logo width={24} height={24} />
+                    SomGlossary
+                </h1>
+            </a>
             <button
                 id="close-btn"
                 class="max-[850px]:flex hidden cursor-pointer"
@@ -57,7 +59,7 @@ import sections from "../helpers/getSections";
                                               ? "oklch(80.9% 0.105 251.813);"
                                               : "transparent",
                                   }}
-                                  class="overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
+                                  class="hideContent overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
                               >
                                   {section.contents.map((content) => (
                                       <li class="p-1 hover:bg-blue-200/50 rounded-md">
