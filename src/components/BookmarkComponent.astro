@@ -1,0 +1,51 @@
+---
+import RemoveBookmarkIcon from "../icons/RemoveBookmarkIcon.astro";
+import Text from "./Text.astro";
+import CopyIcon from "../icons/CopyIcon.astro";
+import LinkLineIcon from "../icons/LinkLineIcon.astro";
+const { title, link } = Astro.props;
+---
+
+<div
+    class="w-full max-w-[500px] rounded-md border-2 border-slate-200 shadow-md flex bg-white"
+>
+    <!-- Left Side -->
+    <div class="p-2 bg-indigo-50 w-fit flex items-center justify-center">
+        <button
+            class="text-blue-500 hover:text-red-400 cursor-pointer transition-colors duration-75"
+        >
+            <RemoveBookmarkIcon />
+        </button>
+    </div>
+    <!-- Right Side -->
+    <div class="p-2 flex flex-col">
+        <Text title={title}>
+            <slot/>
+        </Text>
+        <div class="w-full flex gap-4 justify-center items-center flex-wrap">
+            <div
+                class="flex items-center rounded-md border-2 border-slate-200 px-2 shadow-md"
+            >
+                <span class="text-slate-400"> https:// </span>
+                <input
+                    readonly={true}
+                    value={link}
+                    type="text"
+                    class="outline-none p-2 text-blue-500"
+                />
+            </div>
+            <button
+                class="bg-white rounded-md border-2 border-slate-300 shadow-md text-slate-600 hover:text-slate-400 p-1 cursor-pointer"
+            >
+                <CopyIcon />
+            </button>
+            <button
+                class="bg-white rounded-md border-2 border-slate-300 shadow-md text-slate-600 hover:text-blue-300 p-1 cursor-pointer"
+            >
+                <a href={link}>
+                    <LinkLineIcon />
+                </a>
+            </button>
+        </div>
+    </div>
+</div>
