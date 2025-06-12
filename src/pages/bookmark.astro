@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+import SideBar from "../components/SideBar.astro";
+import BookmarkComponent from "../components/BookmarkComponent.astro";
+import Nav from "../components/Nav.astro";
+---
+
+<Layout title="SomGlossary">
+    <div class="relative flex w-full overflow-hidden">
+        <SideBar />
+        <div class="ml-[300px] w-full mr-0 max-[850px]:ml-0 flex flex-col">
+            <Nav />
+            <div
+                class="w-full p-2 bg-blue-50 flex gap-3 items-center justify-between flex-wrap"
+            >
+                <h1 class="text-lg font-bold italic text-sky-600">Bookmarks</h1>
+                <span class="font-mono"
+                    >Total <span class="text-blue-500">30</span> bookmarks</span
+                >
+            </div>
+            <div class="w-full p-2 pt-4 flex gap-4 flex-wrap justify-center">
+                <BookmarkComponent title = "Hello Adam" link="somglossary.dev/bookmark">
+                    Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey
+                    luuqad cusub, aadna wakhti badan ku bixisey daawashada
+                    casharro
+                </BookmarkComponent>
+                <BookmarkComponent title = "Hello Adam" link="somglossary.dev/bookmark">
+                    Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey
+                    luuqad cusub, aadna wakhti badan ku bixisey daawashada
+                    casharro
+                </BookmarkComponent>
+            </div>
+        </div>
+    </div>
+</Layout>
