@@ -1,20 +1,26 @@
 ---
-import CopyIcon from "../icons/CopyIcon.astro"
-const {title} = Astro.props;
+import CopyIcon from "../icons/CopyIcon.astro";
+const { title } = Astro.props;
 ---
 
-<div class="dark:bg-gray-900 dark:border-slate-800 p-2 bg-blue-50 rounded-md my-2 border-[1.5px] border-slate-200">
+<div
+    class="dark:bg-gray-900 dark:border-slate-800 p-2 bg-blue-50 rounded-md my-2 border-[1.5px] border-slate-200"
+>
     <div class="min-h-[10px] flex items-center justify-between">
         {
-        title && <span>{title}</span>
+            title && (
+                <h1 class="p-2 rounded-md bg-slate-700 border-[1.5px] border-slate-200 w-fit font-semibold text-white">
+                    {title}
+                </h1>
+            )
         }
-        <div class="flex items-center justify-end w-full">
-            <button class="text-gray-600 cursor-pointer">
-                <CopyIcon/>
+        <div class="flex items-center justify-end">
+            <button class="text-gray-600 cursor-pointer hover:text-blue-500">
+                <CopyIcon />
             </button>
         </div>
     </div>
     <p class="leading-8 dark:text-slate-200 text-slate-700">
-        <slot/>
+        <slot />
     </p>
 </div>
