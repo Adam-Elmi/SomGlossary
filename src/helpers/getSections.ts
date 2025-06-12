@@ -1,4 +1,4 @@
-const matches = import.meta.glob("../pages/glossary/*.md", { eager: true });
+const matches = import.meta.glob("../pages/glossary/*.mdx", { eager: true });
 const files = Object.values(matches);
 
 function toLower(arr: string[]) {
@@ -14,25 +14,25 @@ function matchedContents(header: string) {
 
 const sections = [
     {
-        header: "General",
+        header: "Languages",
         get contents() {
             return matchedContents(this.header);
         },
     },
     {
-        header: "Web Development",
+        header: "Frameworks",
         get contents() {
             return matchedContents(this.header);
         },
     },
     {
-        header: "Mobile Development",
+        header: "Libraries",
         get contents() {
             return matchedContents(this.header);
         },
     },
     {
-        header: "Desktop Development",
+        header: "Platforms",
         get contents() {
             return matchedContents(this.header);
         },
@@ -44,25 +44,19 @@ const sections = [
         },
     },
     {
-        header: "Programming Languages",
+        header: "Runtime",
         get contents() {
             return matchedContents(this.header);
         },
     },
     {
-        header: "Operating Systems",
+        header: "Security",
         get contents() {
             return matchedContents(this.header);
         },
     },
     {
-        header: "Cybersecurity",
-        get contents() {
-            return matchedContents(this.header);
-        },
-    },
-    {
-        header: "DevOps & Tools",
+        header: "Dev Tools",
         get contents() {
             return matchedContents(this.header);
         },
