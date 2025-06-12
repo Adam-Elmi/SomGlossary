@@ -6,7 +6,6 @@ import MoonIcon from "../icons/MoonIcon.astro";
 import SunIcon from "../icons/SunIcon.astro";
 import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
 import BookMark from "../icons/BookMark.astro";
-import BrowserIcon from "../icons/BrowserIcon.astro";
 ---
 
 <nav
@@ -18,11 +17,10 @@ import BrowserIcon from "../icons/BrowserIcon.astro";
             <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
         </button>
         <div class="flex gap-4 items-center">
-            <button class="text-blue-500 cursor-pointer">
-                 <BookMark/>
-            </button>
-            <button class="text-blue-500 cursor-pointer">
-                <BrowserIcon dimension = "28"/>
+            <button class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2">
+                <a href="bookmark">
+                    <BookMark />
+                </a>
             </button>
         </div>
     </div>
