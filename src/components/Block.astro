@@ -1,17 +1,17 @@
 ---
 import AddBookmark from "../icons/AddBookmark.astro.astro";
-const { title } = Astro.props;
+const { title, action } = Astro.props;
 ---
 
 <div class="w-full p-2 flex justify-center items-center">
-    <div class="dark:bg-slate-950 dark:border-blue-400 max-w-[800px] w-full rounded-md border-2 border-slate-300 overflow-hidden shadow-md bg-white">
+    <div class="dark:bg-slate-950 dark:border-blue-400 max-w-[1000px] w-full rounded-md border-2 border-slate-300 overflow-hidden shadow-md bg-white">
         <div class="dark:bg-gray-900 dark:border-slate-800 bg-[#f4f6f8] min-h-[40px] flex items-center justify-between p-2 border-b border-slate-200">
-            {title && <span class="dark:text-slate-200">{title}</span>}
-            <span class="text-gray-600">
+            {title && <span class="dark:text-slate-200 font-semibold text-slate-700">{title}</span>}
+            <button class="text-gray-600 cursor-pointer hover:text-blue-400">
                 <AddBookmark/>
-            </span>
+            </button>
         </div>
-        <div class="p-2 leading-8 text-slate-700 dark:text-slate-200">
+        <div class="p-2 leading-8 text-slate-700 dark:text-slate-200 flex flex-col gap-4">
             <slot/>
         </div>
     </div>
