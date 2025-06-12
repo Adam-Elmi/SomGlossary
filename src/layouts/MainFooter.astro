@@ -1,35 +1,51 @@
 ---
 import GithubIcon from "../icons/GithubIcon.astro";
 import DiscordIcon from "../icons/DiscordIcon.astro";
-const sections: string[] = ["Home", "Glossary", "CLI", "About"];
+const sections: string[] = ["Home", "Glossary", "About"];
+const { is_there_sidebar = true } = Astro.props;
 ---
 
 <footer
-  class="ml-[300px] dark:bg-slate-900 dark:border-t-slate-800 dark:border-b-blue-600 max-[850px]:ml-0 bg-blue-50 min-h-[100px] flex py-2 px-4 justify-center items-center border-b-8 border-blue-400 border-t-2 border-t-slate-200 flex-wrap max-[600px]:flex-col"
+    class={`${is_there_sidebar ? "ml-[300px]" : "ml-0"} dark:bg-slate-900 dark:border-t-slate-800 dark:border-b-blue-600 max-[850px]:ml-0 bg-blue-50 min-h-[100px] flex py-2 px-4 justify-center items-center border-b-8 border-blue-400 border-t-2 border-t-slate-200 flex-wrap max-[600px]:flex-col`}
 >
-  <ul class="flex gap-5 flex-wrap justify-center items-center max-[600px]:gap-4 max-[600px]:mb-5">
-    {
-      sections
-        ? sections.map((section) => (
-            <li>
-              <a class="text-slate-400 italic" href={section === "Home" ? "/" : "/" + section.toLowerCase() }>
-                {section}
-              </a>
-            </li>
-          ))
-        : null
-    }
-  </ul>
-  <div class="flex gap-3 flex-1 justify-end flex-wrap items-center max-[600px]:justify-center">
-    <span class="text-slate-400 italic"
-      >&copy; <a href="https://github.com/Adam-Elmi" target="_blank" class="mr-2">Adam Elmi</a> {new Date().getFullYear()}
-    </span
+    <ul
+        class="flex gap-5 flex-wrap justify-center items-center max-[600px]:gap-4 max-[600px]:mb-5"
     >
-    <a href="https:github.com/Adam-Elmi/SomCheat" class="dark:text-white">
-        <GithubIcon dimension={30}/>
-    </a>
-    <a href="https://discord.com/users/adamcade">
-        <DiscordIcon/>
-    </a>
-  </div>
+        {
+            sections
+                ? sections.map((section) => (
+                      <li>
+                          <a
+                              class="text-slate-400 italic"
+                              href={
+                                  section === "Home"
+                                      ? "/"
+                                      : "/" + section.toLowerCase()
+                              }
+                          >
+                              {section}
+                          </a>
+                      </li>
+                  ))
+                : null
+        }
+    </ul>
+    <div
+        class="flex gap-3 flex-1 justify-end flex-wrap items-center max-[600px]:justify-center"
+    >
+        <span class="text-slate-400 italic"
+            >&copy; <a
+                href="https://github.com/Adam-Elmi"
+                target="_blank"
+                class="mr-2">Adam Elmi</a
+            >
+            {new Date().getFullYear()}
+        </span>
+        <a href="https:github.com/Adam-Elmi/SomCheat" class="dark:text-white">
+            <GithubIcon dimension={30} />
+        </a>
+        <a href="https://discord.com/users/adamcade">
+            <DiscordIcon />
+        </a>
+    </div>
 </footer>
