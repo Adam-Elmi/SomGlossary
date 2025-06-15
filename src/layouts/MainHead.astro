@@ -17,7 +17,6 @@ const { title } = Astro.props;
     <script>
         window.addEventListener("DOMContentLoaded", () => {
           const theme =  localStorage.getItem("theme") || "light";
-          console.log(theme);
            document.documentElement.setAttribute("data-theme", theme);
         });
     </script>
