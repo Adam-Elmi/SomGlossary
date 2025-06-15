@@ -6,7 +6,9 @@
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "create": "lua tools/create_json.lua",
+    "create:win": "lua54 tools/create_json.lua"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
