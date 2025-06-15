@@ -6,6 +6,7 @@ import DocIcon from "../icons/DocIcon.astro";
 import ArrowIcon from "../icons/ArrowIcon.astro";
 import Logo from "../assets/somglossary.svg";
 import sections from "../helpers/getSections";
+import output from "../../data/output.json";
 ---
 
 <div
@@ -61,10 +62,10 @@ import sections from "../helpers/getSections";
                                   }}
                                   class="hideContent overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
                               >
-                                  {section.contents.map((content) => (
+                                  {section.contents.map((content, i) => (
                                       <li class="p-1 hover:bg-blue-200/50 rounded-md">
                                           <a
-                                              href=""
+                                              href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
                                               class="dark:text-slate-50 text-slate-800 flex gap-2 items-center italic"
                                           >
                                               <span class="text-blue-400">
@@ -118,3 +119,4 @@ import sections from "../helpers/getSections";
 </style>
 <script src="../js/handleSideBar.js"></script>
 <script src="../js/expandContent.js"></script>
+<script src="../helpers/getSections.ts"></script>
