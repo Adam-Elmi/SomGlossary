@@ -20,14 +20,17 @@ const { title, link } = Astro.props;
     <!-- Bottom Side -->
     <div class="p-2 flex flex-col">
         <Text title={title}>
-            <slot/>
+            <slot />
         </Text>
-        <div class="w-full flex gap-4 justify-center items-center flex-wrap my-2">
+        <div
+            class="w-full flex gap-4 justify-center items-center flex-wrap my-2"
+        >
             <div
                 class="flex items-center rounded-md border-2 border-slate-200 px-2 shadow-md"
             >
                 <span class="text-slate-400"> https:// </span>
                 <input
+                    id="code-node-terminal"
                     readonly={true}
                     value={link}
                     type="text"
@@ -35,9 +38,12 @@ const { title, link } = Astro.props;
                 />
             </div>
             <button
+                id="copy-btn-terminal"
                 class="bg-white rounded-md border-2 border-slate-300 shadow-md text-slate-600 hover:text-slate-400 p-1 cursor-pointer"
             >
-                <CopyIcon />
+                <span id="copy-icon-holder-for-terminal">
+                    <CopyIcon />
+                </span>
             </button>
             <button
                 class="bg-white rounded-md border-2 border-slate-300 shadow-md text-slate-600 hover:text-blue-300 p-1 cursor-pointer"
@@ -49,3 +55,4 @@ const { title, link } = Astro.props;
         </div>
     </div>
 </div>
+<script src="../helpers/copyText.ts"></script>
