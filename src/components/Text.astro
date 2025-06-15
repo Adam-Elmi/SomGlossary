@@ -15,12 +15,18 @@ const { title } = Astro.props;
             )
         }
         <div class="flex items-center justify-end">
-            <button class="text-gray-600 cursor-pointer hover:text-blue-500">
-                <CopyIcon />
+            <button
+                id="copy-btn-terminal"
+                class="text-gray-600 cursor-pointer hover:text-blue-500"
+            >
+                <span id="copy-icon-holder-for-terminal">
+                    <CopyIcon />
+                </span>
             </button>
         </div>
     </div>
-    <p class="leading-8 dark:text-slate-200 text-slate-700">
+    <p id="code-node-terminal" class="leading-8 dark:text-slate-200 text-slate-700">
         <slot />
     </p>
 </div>
+<script src="../helpers/copyText.ts"></script>
