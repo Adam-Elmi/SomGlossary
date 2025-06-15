@@ -59,7 +59,11 @@
     icon: string,
   ) => {
     const textArea = document.createElement("textarea");
-    textArea.value = text;
+    textArea.value = text
+      .split(" ")
+      .map((value) => value.replace("\n", "").trim())
+      .filter((value) => value !== "")
+      .join(" ");
     document.body.appendChild(textArea);
     textArea.select();
     try {
@@ -79,9 +83,22 @@
   ) => {
     try {
       navigator.clipboard
-        .writeText(text.split(" ").map(value => value.replace("\n", "").trim()).filter(value => value !== "").join(" "))
+        .writeText(
+          text
+            .split(" ")
+            .map((value) => value.replace("\n", "").trim())
+            .filter((value) => value !== "")
+            .join(" "),
+        )
         .then(() => {
-          console.log("Text Copied: ",text.split(" ").map(value => value.replace("\n", "").trim()).filter(value => value !== "").join(" "));
+          console.log(
+            "Text Copied: ",
+            text
+              .split(" ")
+              .map((value) => value.replace("\n", "").trim())
+              .filter((value) => value !== "")
+              .join(" "),
+          );
           handleIcon(iconHolder, index, icon);
         })
         .catch((error) => console.error("Copy failed:", error));
@@ -94,14 +111,18 @@
       btn.addEventListener("click", () => {
         if (navigator.clipboard) {
           copyText(
-            copyNodes[index]?.textContent?.trim() || "",
+            copyNodesTerminal[index]?.textContent?.trim() ||
+              (copyNodesTerminal[index] as HTMLInputElement)?.value ||
+              "",
             index,
             copyIconHolder,
             copyIcon,
           );
         } else {
           fallbackCopyText(
-            copyNodes[index]?.textContent?.trim() || "",
+            copyNodesTerminal[index]?.textContent?.trim() ||
+              (copyNodesTerminal[index] as HTMLInputElement)?.value ||
+              "",
             index,
             copyIconHolder,
             copyIcon,
@@ -115,14 +136,18 @@
       btn.addEventListener("click", () => {
         if (navigator.clipboard) {
           copyText(
-            copyNodesTerminal[index]?.textContent?.trim() || "",
+            copyNodesTerminal[index]?.textContent?.trim() ||
+              (copyNodesTerminal[index] as HTMLInputElement)?.value ||
+              "",
             index,
             copyIconHolderTerminal,
             copy2Icon,
           );
         } else {
           fallbackCopyText(
-            copyNodesTerminal[index]?.textContent?.trim() || "",
+            copyNodesTerminal[index]?.textContent?.trim() ||
+              (copyNodesTerminal[index] as HTMLInputElement)?.value ||
+              "",
             index,
             copyIconHolderTerminal,
             copy2Icon,
