@@ -1,5 +1,4 @@
-const matches = import.meta.glob("../pages/glossary/*.mdx", { eager: true });
-const files = Object.values(matches);
+import output from "../../data/output.json";
 
 function toLower(arr: string[]) {
   return arr.map(value => value.toLowerCase());
@@ -7,9 +6,9 @@ function toLower(arr: string[]) {
 
 function matchedContents(header: string) {
     header = header.toLowerCase();
-    return files
-        .filter((file: any) => toLower(file.frontmatter.category).includes(header))
-        .map((item: any) => item.frontmatter.title);
+    return output
+        .filter((file: any) => toLower(file.category).includes(header))
+        .map((item: any) => item.title);
 }
 
 const sections = [
@@ -62,4 +61,5 @@ const sections = [
         },
     },
 ];
+console.log(sections)
 export default sections;
