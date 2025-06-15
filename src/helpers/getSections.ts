@@ -61,5 +61,4 @@ const sections = [
         },
     },
 ];
-console.log(sections)
 export default sections;
