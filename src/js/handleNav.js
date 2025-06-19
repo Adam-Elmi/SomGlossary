@@ -11,6 +11,7 @@ if (sideBarParent && menuBtn) {
             }, 100);
         }
         sideBarParent.style.display = "flex";
+        document.body.style.overflow = "hidden";
     });
 }
 const themeContainer = document.getElementById("theme-container");

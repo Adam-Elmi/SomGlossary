@@ -8,6 +8,18 @@ if (sideBar) {
   });
 }
 
+function updateScroll() {
+  if (window.innerWidth >= 450) {
+    document.body.style.overflow = "auto";
+  }
+}
+
+updateScroll();
+
+window.addEventListener("resize", () => {
+  updateScroll();
+});
+
 function handleClose() {
   if (sideBar) {
     sideBar.style.transform = "translateX(-450px)";
@@ -16,6 +28,7 @@ function handleClose() {
     if (sideBarParent) {
       sideBarParent.style.display = "none";
     }
+    document.body.style.overflow = "auto";
   }, 500);
 }
 if (sideBarParent && closeBtn) {
