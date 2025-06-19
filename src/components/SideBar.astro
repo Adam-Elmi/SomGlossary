@@ -7,15 +7,33 @@ import ArrowIcon from "../icons/ArrowIcon.astro";
 import Logo from "../assets/somglossary.svg";
 import sections from "../helpers/getSections";
 import output from "../../data/output.json";
+function textCompress(text: string, length: number) {
+  if (text && length) {
+    if (text.length > length) {
+      text = text.slice(0, length) + "...";
+      return text;
+    } else {
+      return text;
+    }
+  }
+}
 ---
 
 <div
     id="sidebar-parent"
-    class="max-[850px]:hidden fixed left-0 top-0 right-0 bottom-0 z-99 w-[300px] max-[850px]:w-full bg-white/10 backdrop-blur-md flex flex-col"
+    class="max-[850px]:hidden overflow-hidden fixed inset-0 z-99 w-[300px] max-[850px]:w-full bg-white/10 backdrop-blur-md flex flex-col"
 >
+    <script>
+    window.addEventListener("resize", () => {
+        if (window.innerWidth <= 450) {
+          document.body.style.overflow = "none";
+          console.log(document.body);
+        }
+    });
+    </script>
     <aside
         id="sidebar"
-        class="h-full max-[450px]:w-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
+        class="flex-1 h-full max-[450px]:w-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
     >
         <div
             class="p-2 dark:border-slate-800 flex justify-between items-center border-b-2 border-slate-100 gap-2"
@@ -65,13 +83,14 @@ import output from "../../data/output.json";
                                   {section.contents.map((content, i) => (
                                       <li class="p-1 hover:bg-blue-200/50 rounded-md">
                                           <a
+                                          title={content}
                                               href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
                                               class="dark:text-slate-50 text-slate-800 flex gap-2 items-center italic"
                                           >
                                               <span class="text-blue-400">
                                                   <DocIcon />
                                               </span>
-                                              {content}
+                                              {textCompress(content, 24)}
                                           </a>
                                       </li>
                                   ))}
@@ -118,4 +137,4 @@ import output from "../../data/output.json";
         }
 </style>
 <script src="../js/handleSideBar.js"></script>
-<script src="../js/expandContent.js"></script>
+<script src="../js/expandContent.js"></script
