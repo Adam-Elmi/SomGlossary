@@ -61,7 +61,7 @@ end
 
 local output = json.encode(sections, { indent = true })
 
-local outputFile = io.open("data/output.json", "w")
+local outputFile = io.open("glossary_data/output.json", "w")
 
 if outputFile then
     outputFile:write(output)
