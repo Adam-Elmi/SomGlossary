@@ -1,4 +1,4 @@
-import output from "../../data/output.json";
+import output from "../../glossary_data/output.json";
 
 function toLower(arr: string[]) {
   return arr.map(value => value.toLowerCase());
@@ -19,13 +19,7 @@ const sections = [
         },
     },
     {
-        header: "Frameworks",
-        get contents() {
-            return matchedContents(this.header);
-        },
-    },
-    {
-        header: "Libraries",
+        header: "Frameworks & Libraries",
         get contents() {
             return matchedContents(this.header);
         },
