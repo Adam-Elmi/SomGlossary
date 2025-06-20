@@ -6,6 +6,12 @@ import MoonIcon from "../icons/MoonIcon.astro";
 import SunIcon from "../icons/SunIcon.astro";
 import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
 import BookMark from "../icons/BookMark.astro";
+import HomeIcon from "../icons/HomeIcon.astro";
+function is_homepage() {
+    if (Astro.url.pathname === "/") {
+        return true;
+    } else return false;
+}
 ---
 
 <nav
@@ -14,11 +20,26 @@ import BookMark from "../icons/BookMark.astro";
 >
     <div class="flex gap-4 justify-center items-center">
         <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
-            <MenuIcon dimension={30} color="oklch(70.7% 0.165 254.624)" />
+            <MenuIcon dimension={34} color="oklch(70.7% 0.165 254.624)" />
         </button>
-        <div class="flex gap-4 items-center">
-            <button class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2">
-                <a href="bookmark">
+        <div class="flex gap-3 items-center">
+            {
+                is_homepage() ? null : (
+                    <button
+                        title="Home"
+                        class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2"
+                    >
+                        <a href="/">
+                            <HomeIcon />
+                        </a>
+                    </button>
+                )
+            }
+            <button
+                title="Bookmark"
+                class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2"
+            >
+                <a href="/bookmark">
                     <BookMark />
                 </a>
             </button>
