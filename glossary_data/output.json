@@ -1,13 +1,13 @@
 [{
     "file":"test.mdx",
     "title":"Test",
-    "category":["Languages","Platforms","Frameworks"]
+    "category":["Languages","Platforms","Frameworks & Libraries"]
   },{
     "file":"adam.mdx",
     "title":"Hello Welcome Hello Welcome Hello Welcome Hello Welcome Hello Welcome Hello Welcome",
-    "category":["Languages","Libraries","Frameworks"]
+    "category":["Languages","Frameworks & Libraries"]
   },{
     "file":"welcome.mdx",
     "title":"Welcome",
-    "category":["Languages","Platforms","Frameworks"]
+    "category":["Languages","Platforms","Frameworks & Libraries"]
   }]
