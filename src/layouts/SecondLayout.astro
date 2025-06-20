@@ -1,12 +1,14 @@
 ---
 import Layout from "./MainLayout.astro";
 import SideBar from "../components/SideBar.astro";
+import Nav from "../components/Nav.astro";
 ---
 
 <Layout title="Glossary">
-    <div class="relative flex w-full overflow-hidden">
+    <div class="relative flex w-full">
         <SideBar />
-        <div class="ml-[300px] w-full mr-0 max-[850px]:ml-0 flex flex-col">
+        <div class="ml-[300px] w-full max-[850px]:ml-0 flex flex-col">
+            <Nav />
             <slot />
         </div>
     </div>
