@@ -8,8 +8,29 @@ const { dimension = "24", color = "currentColor" } = Astro.props;
     height={dimension}
     viewBox="0 0 24 24"
 >
-    <path
+    <circle cx="4" cy="12" r="1" fill={color}></circle>
+    <rect
+        width="14"
+        height="2"
+        x="7"
+        y="11"
         fill={color}
-        d="M21 4H7v2h14zm0 7H11v2h10zm0 7H7v2h14zM1.99 8.814L3.402 7.4L8 11.996l-4.597 4.596l-1.414-1.414l3.182-3.182z"
-    ></path>
+        rx=".94"
+        ry=".94"></rect>
+    <rect
+        width="18"
+        height="2"
+        x="3"
+        y="16"
+        fill={color}
+        rx=".94"
+        ry=".94"></rect>
+    <rect
+        width="18"
+        height="2"
+        x="3"
+        y="6"
+        fill={color}
+        rx=".94"
+        ry=".94"></rect>
 </svg>
