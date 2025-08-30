@@ -5,7 +5,6 @@ import ThemeIcon from "../icons/ThemeIcon.astro";
 import MoonIcon from "../icons/MoonIcon.astro";
 import SunIcon from "../icons/SunIcon.astro";
 import DefaultModeIcon from "../icons/DefaultModeIcon.astro";
-import BookMark from "../icons/BookMark.astro";
 import HomeIcon from "../icons/HomeIcon.astro";
 function is_homepage() {
     if (Astro.url.pathname === "/") {
@@ -35,14 +34,6 @@ function is_homepage() {
                     </button>
                 )
             }
-            <button
-                title="Bookmark"
-                class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2"
-            >
-                <a href="/bookmark">
-                    <BookMark />
-                </a>
-            </button>
         </div>
     </div>
     <div class="relative flex items-center gap-5 w-full justify-end">
