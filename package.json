@@ -7,8 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "create": "lua tools/create_json.lua",
-    "create:win": "lua54 tools/create_json.lua"
+    "create": "node tools/create_glossary_data.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
