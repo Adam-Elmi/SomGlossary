@@ -3,10 +3,9 @@ import SideBarIcon from "../icons/SideBarIcon.astro";
 import IssueIcon from "../icons/IssueIcon.astro";
 import GithubIcon from "../icons/GithubIcon.astro";
 import DocIcon from "../icons/DocIcon.astro";
-import ArrowIcon from "../icons/ArrowIcon.astro";
 import Logo from "../assets/somglossary.svg";
-import sections from "../helpers/getSections";
 import output from "../../glossary_data/output.json";
+import BookMark from "../icons/BookMark.astro";
 function textCompress(text: string, length: number) {
   if (text && length) {
     if (text.length > length) {
@@ -57,48 +56,41 @@ function textCompress(text: string, length: number) {
             </button>
         </div>
         <div id="list-container" class="flex flex-col gap-3 p-2 overflow-auto">
-            {
-                sections
-                    ? sections.map((section) => (
-                          <div class="flex flex-col gap-2 dark:bg-blue-900/20 dark:border-blue-500/20 bg-slate-100/10 p-2 px-3 rounded-md border-2 border-blue-100/50">
-                              <button
-                                  id="header-btn"
-                                  class="cursor-pointer dark:text-slate-100 font-semibold text-slate-600 flex gap-2 justify-between items-center"
-                              >
-                                  {section.header}
-                                  <span>
-                                      <ArrowIcon />
-                                  </span>
-                              </button>
-                              <ul
-                                  id="content-list"
-                                  style={{
-                                      borderColor:
-                                          section.contents.length > 0
-                                              ? "oklch(80.9% 0.105 251.813);"
-                                              : "transparent",
-                                  }}
-                                  class="hideContent overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
-                              >
-                                  {section.contents.map((content: string, i: number) => (
-                                      <li class="p-1 hover:bg-blue-200/50 rounded-md">
-                                          <a
-                                          title={content}
-                                              href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
-                                              class="dark:text-slate-50 text-slate-800 flex gap-2 items-center italic"
-                                          >
-                                              <span class="text-blue-400">
-                                                  <DocIcon />
-                                              </span>
-                                              {textCompress(content, 24)}
-                                          </a>
-                                      </li>
-                                  ))}
-                              </ul>
-                          </div>
-                      ))
-                    : null
-            }
+            <div class="flex flex-col gap-2 dark:bg-blue-900/20 dark:border-blue-500/20 bg-slate-100/10 p-2 px-3 rounded-md border-2 border-blue-100/50">
+                <h2
+                id="header-btn"
+                class="cursor-pointer dark:text-slate-100 font-semibold text-slate-600 flex gap-2 items-center"
+                >
+                    <BookMark/>
+                    Glossary
+                </h2>
+                <ul
+                    id="content-list"
+                    style={{
+                        borderColor:
+                            output.length > 0
+                                ? "oklch(80.9% 0.105 251.813);"
+                                : "transparent",
+                    }}
+                    class="overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
+                >
+                    {
+                    Array.isArray(output) && output.length > 0 ? output.map((obj: {file: string, title: string}, i: number) => (
+                        <li class="p-1 hover:bg-blue-200/40 rounded-md">
+                            <a
+                            title={obj.title}
+                                href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
+                                class="dark:text-slate-50 text-slate-600 flex gap-2 items-center font-medium"
+                            >
+                                <span class="text-blue-400">
+                                  <DocIcon dimension={20}/>
+                                </span>
+                                {textCompress(obj.title, 24)}
+                            </a>
+                        </li>
+                    )): null}
+                </ul>
+            </div>
         </div>
         <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
             <a
