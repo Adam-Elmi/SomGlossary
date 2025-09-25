@@ -76,13 +76,13 @@ function textCompress(text: string, length: number) {
                 >
                     {
                     Array.isArray(output) && output.length > 0 ? output.map((obj: {file: string, title: string}, i: number) => (
-                        <li class="p-1 hover:bg-blue-200/40 rounded-md">
+                        <li class="p-1 dark:hover:bg-blue-800/20  hover:bg-blue-200/20 rounded-md">
                             <a
                             title={obj.title}
                                 href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
                                 class="dark:text-slate-50 text-slate-600 flex gap-2 items-center font-medium"
                             >
-                                <span class="text-blue-400">
+                                <span class="text-blue-500">
                                   <DocIcon dimension={20}/>
                                 </span>
                                 {textCompress(obj.title, 24)}
