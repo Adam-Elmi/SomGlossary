@@ -51,6 +51,11 @@ if (themeContainer && themeBtn) {
             localStorage.setItem("theme", themeValue);
         }
     }
+    
+    const isDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+    ).matches;
+    store_theme(isDarkMode ? "dark" : "light");
 
     function changeTheme(e) {
         const target = e.target;
