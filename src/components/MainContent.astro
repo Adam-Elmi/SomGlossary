@@ -4,10 +4,10 @@ import ViewSection from "./ViewSection.astro";
 import LanguageIcon from "../icons/LanguageIcon.astro";
 import BookIcon from "../icons/BookIcon.astro";
 import OpenSourceIcon from "../icons/OpenSourceIcon.astro";
-import Block from "./Block.astro";
-import Text from "./Text.astro";
-import Hightlight from "./Hightlight.astro";
-const reasons_SomGlossary = [
+import BoxAddIcon from "../icons/BoxAddIcon.astro";
+import output from "../../glossary_data/output.json";
+
+const features = [
     {
         title: "Af-Soomaali",
         description: "Erayo tiknoolaji ah oo lagu sharaxay Af-Soomaali.",
@@ -23,6 +23,24 @@ const reasons_SomGlossary = [
             "Qof walbana wuu ka qayb qaadan kara ama wax wu ku dari karaa.",
     },
 ];
+const highlights = [
+    {
+        title: "Total Glossaries",
+        data: output.length,
+    },
+    {
+        title: "Random Glossary",
+        data: output.length,
+    },
+    {
+        title: "Newest Glossary Added",
+        data: output.length,
+    },
+    {
+        title: "Glossary of the Day",
+        data: output.length,
+    },
+];
 ---
 
 <div class="w-full ml-[300px] mr-0 max-[850px]:ml-0 flex-1 overflow-hidden">
@@ -30,26 +48,37 @@ const reasons_SomGlossary = [
     <ViewSection />
     <div class="p-2">
         <h1
-            class="dark:text-white dark:border-slate-800 text-center text-xl font-bold italic text-slate-600 border-b-2 border-indigo-100 w-fit m-auto p-2"
+            class="flex items-center justify-between gap-2 dark:text-slate-400 dark:border-slate-800 dark:bg-slate-800 bg-slate-50 rounded-md text-center text-slate-300text-lg font-semibold text-slate-600 border-b-2 border-indigo-100 w-fit m-auto pl-2"
         >
-            Faa'iidooyinka SomGlossary
+            Faa'iidooyinka <span class="text-blue-400">SomGlossary</span>
+            <span
+                class="p-1 bg-blue-500 flex items-center justify-center rounded-md text-white border-2 dark:border-slate-600 border-slate-200"
+            >
+                <BoxAddIcon />
+            </span>
         </h1>
         <ul class="flex gap-4 p-4 flex-wrap w-full justify-center items-center">
             {
-                reasons_SomGlossary
-                    ? reasons_SomGlossary.map((reason, index) => (
-                          <li class="dark:text-white dark:border-slate-600 max-w-[350px] w-full min-h-[100px] dark:bg-slate-800 bg-indigo-50 flex gap-2 flex-col border-2 border-slate-300 p-2 rounded-md">
+                features
+                    ? features.map((reason, index) => (
+                          <li class="dark:text-white dark:border-slate-600 max-w-[350px] w-full min-h-[100px] dark:bg-slate-900 bg-white flex gap-2 flex-col border-[1.5px] border-slate-300 p-2 rounded-md">
                               <span class="italic font-bold dark:text-slate-300 text-slate-700 flex gap-2 items-center">
                                   {index === 0 ? (
-                                      <LanguageIcon />
+                                      <span class="p-1 bg-blue-500 flex items-center justify-center rounded-md text-white border-2 dark:border-slate-600 border-slate-200">
+                                          <LanguageIcon />
+                                      </span>
                                   ) : index === 1 ? (
-                                      <BookIcon />
+                                      <span class="p-1 bg-blue-500 flex items-center justify-center rounded-md text-white border-2 dark:border-slate-600 border-slate-200">
+                                          <BookIcon />
+                                      </span>
                                   ) : (
-                                      <OpenSourceIcon />
+                                      <span class="p-1 bg-blue-500 flex items-center justify-center rounded-md text-white border-2 dark:border-slate-600 border-slate-200">
+                                          <OpenSourceIcon />
+                                      </span>
                                   )}
                                   {reason.title}
                               </span>
-                              <p class="dark:text-slate-300 text-slate-600">
+                              <p class="dark:text-slate-400 text-slate-600 max-[1430px]:text-center">
                                   {reason.description}
                               </p>
                           </li>
@@ -58,5 +87,4 @@ const reasons_SomGlossary = [
             }
         </ul>
     </div>
-    
 </div>
