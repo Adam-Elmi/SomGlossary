@@ -13,7 +13,7 @@ import ResultContainer from "./ResultContainer.astro";
         <CloseIcon dimension={35}/>
     </button>
     <div
-        class="max-w-[900px] dark:bg-slate-700 dark:border-slate-800 w-full mt-10 border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
+        class="max-w-[900px] dark:bg-slate-900 dark:border-slate-700/50 w-full mt-10 border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
     >
         <span class="px-2">
             <SearchIcon color="#ddd" />
@@ -21,7 +21,7 @@ import ResultContainer from "./ResultContainer.astro";
         <input
             id="functional-search-input"
             type="search"
-            class="w-full dark:text-white max-w-full p-2 rounded-md outline-none"
+            class="w-full dark:text-white max-w-full p-2 rounded-md outline-none placeholder:italic placeholder:font-semibold"
             placeholder="Search..."
         />
         <script>
@@ -53,7 +53,7 @@ import ResultContainer from "./ResultContainer.astro";
             }
         </script>
         <button
-            class="bg-blue-500 dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:border-slate-500 font-semibold p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border border-slate-200 italic"
+            class="bg-blue-500 dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:border-slate-700 font-bold italic p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border-[1.5px] border-slate-200"
         >
             Search
         </button>
