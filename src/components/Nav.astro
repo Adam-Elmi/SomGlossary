@@ -15,7 +15,7 @@ function is_homepage() {
 
 <nav
     id="nav-bar"
-    class="flex dark:bg-slate-900 dark:border-b-slate-800 gap-3 items-center px-2 py-3 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
+    class="flex dark:bg-slate-900 dark:border-b-slate-800 gap-3 items-center px-2 py-2 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
 >
     <div class="flex gap-4 justify-center items-center">
         <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
@@ -37,7 +37,7 @@ function is_homepage() {
         </div>
     </div>
     <div class="relative flex items-center gap-5 w-full justify-end">
-        <SearchComponent maxWidth="50px" placeholder="" />
+        <SearchComponent height="30px" maxWidth="50px"/>
         <button id="theme-btn" title="Theme" class="cursor-pointer">
             <ThemeIcon dimension="32" />
         </button>
