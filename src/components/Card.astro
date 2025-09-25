@@ -1,0 +1,85 @@
+---
+import BookIcon from "../icons/BookIcon.astro";
+const { title, description, icon, label, data, link, index = 0 } = Astro.props;
+const colors = ["bg-sky-100", "bg-pink-100", "bg-emerald-100", "bg-amber-100"];
+const label_colors = [
+    "bg-sky-200/70",
+    "bg-pink-200/70",
+    "bg-emerald-200/70",
+    "bg-amber-200/70",
+];
+import CollectionIcon from "../icons/CollectionIcon.astro";
+import RandomIcon from "../icons/RandomIcon.astro";
+import NewIcon from "../icons/NewIcon.astro";
+import DateIcon from "../icons/DateIcon.astro";
+---
+
+<li
+    class="w-[350px] min-h-[120px] shadow-md flex flex-col gap-2 dark:bg-slate-900/50 bg-white/50 border-2 dark:border-slate-700 border-slate-100 p-1 rounded-md overflow-hidden"
+>
+    <div
+        class={`w-full h-full ${colors[index]} rounded-md p-2 flex gap-2 flex-col`}
+    >
+        <span
+            class={`${label_colors[index]} rounded-2xl py-1 px-2 text-sm text-slate-600 w-fit`}
+            >{label}</span
+        >
+        <div class="flex gap-2 items-center">
+            <span>
+                {
+                    icon === "collection" ? (
+                        <CollectionIcon />
+                    ) : icon === "random" ? (
+                        <RandomIcon />
+                    ) : icon === "new" ? (
+                        <NewIcon />
+                    ) : (
+                        <DateIcon />
+                    )
+                }
+            </span>
+            <h2 class="text-sm font-semibold text-slate-800">{title}</h2>
+        </div>
+        <p class="text-sm text-slate-600 flex gap-2">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 32 32"
+            >
+                <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 7h22M5 13h14M5 19h22M5 25h14"></path>
+            </svg>
+            {description}
+        </p>
+    </div>
+    <div class="h-[50px] dark:text-white flex justify-between items-center p-2">
+        <span class="text-slate-500 italic font-mono text-sm">{data}</span>
+        <a href={link ? link : ""}>
+            <button
+                class="flex gap-2 items-center dark:bg-slate-800 bg-slate-100 dark:text-slate-400 text-slate-600 py-1 px-2 rounded-md border-[1.5px] dark:border-slate-600 border-slate-300 cursor-pointer"
+            >
+                View
+                <span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            d="M2 12h20m-9-9l9 9l-9 9"></path>
+                    </svg>
+                </span>
+            </button>
+        </a>
+    </div>
+</li>
