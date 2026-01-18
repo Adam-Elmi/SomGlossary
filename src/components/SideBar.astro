@@ -2,131 +2,214 @@
 import SideBarIcon from "../icons/SideBarIcon.astro";
 import IssueIcon from "../icons/IssueIcon.astro";
 import GithubIcon from "../icons/GithubIcon.astro";
-import DocIcon from "../icons/DocIcon.astro";
+import BookIcon from "../icons/BookIcon.astro";
 import Logo from "../assets/somglossary.svg";
-import output from "../../glossary_data/output.json";
 import BookMark from "../icons/BookMark.astro";
+import CloseIcon from "../icons/CloseIcon.astro";
+import SearchIcon from "../icons/SearchIcon.astro";
+
+const matches = import.meta.glob("../pages/glossary/*.mdx", { eager: true });
+const glossaryItems = Object.values(matches)
+    .map((file: any) => ({
+        url: file.url,
+        term: file.frontmatter.term,
+    }))
+    .filter((item) => item.term)
+    .sort((a, b) => a.term.localeCompare(b.term));
+
 function textCompress(text: string, length: number) {
-  if (text && length) {
-    if (text.length > length) {
-      text = text.slice(0, length) + "...";
-      return text;
-    } else {
-      return text;
+    if (text && length) {
+        if (text.length > length) {
+            return text.slice(0, length) + "...";
+        }
+        return text;
     }
-  }
 }
 ---
 
 <div
     id="sidebar-parent"
-    class="max-[850px]:hidden overflow-hidden fixed inset-0 z-99 w-[300px] max-[850px]:w-full bg-white/10 backdrop-blur-md flex flex-col"
+    class="max-[850px]:hidden fixed inset-0 z-[100] w-[320px] max-[850px]:w-full bg-slate-950/20 backdrop-blur-sm flex flex-col transition-all duration-500 overflow-hidden"
 >
-    <script>
-    window.addEventListener("resize", () => {
-        if (window.innerWidth <= 450) {
-          document.body.style.overflow = "none";
-          console.log(document.body);
-        }
-    });
-    </script>
     <aside
         id="sidebar"
-        class="flex-1 h-full max-[450px]:w-full dark:bg-slate-900 dark:border-r-slate-800 bg-slate-50 border-r-2 border-slate-200 flex flex-col w-[300px]"
+        class="flex-1 h-full max-[450px]:w-full dark:bg-slate-900/90 bg-white/90 backdrop-blur-2xl border-r border-slate-200/50 dark:border-slate-800/50 flex flex-col w-[320px] shadow-2xl transition-transform duration-500"
     >
+        <!-- Sidebar Header -->
         <div
-            class="p-2 dark:border-slate-800 flex justify-between items-center border-b-2 border-slate-100 gap-2"
+            class="px-6 py-5 flex justify-between items-center bg-white/50 dark:bg-slate-900/50 border-b border-slate-200/50 dark:border-slate-800/50"
         >
-            <a href="/">
+            <a href="/" class="group">
                 <h1
                     style={{ fontFamily: "Grand Hotel" }}
-                    class="text-[1.5rem] dark:text-white text-slate-700 text-cneter flex gap-2 items-center"
+                    class="text-2xl dark:text-white text-slate-800 flex gap-2.5 items-center transition-transform group-hover:scale-105"
                 >
-                    <Logo width={24} height={24} />
+                    <Logo width={28} height={28} class="drop-shadow-sm" />
                     SomGlossary
                 </h1>
             </a>
             <button
                 id="close-btn"
-                class="max-[850px]:flex hidden cursor-pointer"
+                class="hidden max-[850px]:flex p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-red-500 transition-all active:scale-90"
             >
-                <span class="text-blue-500">
-                    <SideBarIcon dimension={30}/>
-                </span>
+                <CloseIcon dimension={24} />
             </button>
         </div>
-        <div id="list-container" class="flex flex-col gap-3 p-2 overflow-auto">
-            <div class="flex flex-col gap-2 dark:bg-blue-900/20 dark:border-blue-500/20 bg-slate-100/10 p-2 px-3 rounded-md border-2 border-blue-100/50">
-                <h2
-                id="header-btn"
-                class="cursor-pointer dark:text-slate-100 font-semibold text-slate-600 flex gap-2 items-center"
+
+        <div
+            class="p-4 border-b border-slate-300/50 dark:border-slate-800/50 flex flex-col gap-4"
+        >
+            <div class="relative group">
+                <div
+                    class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors"
                 >
-                    <BookMark/>
-                    Glossary
-                </h2>
-                <ul
-                    id="content-list"
-                    style={{
-                        borderColor:
-                            output.length > 0
-                                ? "oklch(80.9% 0.105 251.813);"
-                                : "transparent",
-                    }}
-                    class="overflow-hidden pl-3 py-2 border-l-2 flex flex-col gap-2"
-                >
-                    {
-                    Array.isArray(output) && output.length > 0 ? output.map((obj: {file: string, title: string}, i: number) => (
-                        <li class="p-1 dark:hover:bg-blue-800/20  hover:bg-blue-200/20 rounded-md">
-                            <a
-                            title={obj.title}
-                                href={"/glossary/" + output[i]?.file.slice(0, output[i]?.file.lastIndexOf("."))}
-                                class="dark:text-slate-50 text-slate-600 flex gap-2 items-center font-medium"
-                            >
-                                <span class="text-blue-500">
-                                  <DocIcon dimension={20}/>
-                                </span>
-                                {textCompress(obj.title, 24)}
-                            </a>
-                        </li>
-                    )): null}
-                </ul>
+                    <SearchIcon dimension={16} />
+                </div>
+                <input
+                    id="sidebar-search"
+                    type="text"
+                    placeholder="Filter terms..."
+                    class="w-full pl-10 pr-4 py-2 text-sm bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-xl outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all dark:text-slate-200"
+                />
             </div>
         </div>
-        <div class="flex-1 p-2 flex justify-end items-center flex-col gap-2">
+
+        <div
+            id="list-container"
+            class="flex-1 overflow-y-auto custom-scrollbar pt-4 pb-2 space-y-0.5"
+        >
+            <div
+                class="border-b border-slate-300/50 dark:border-slate-800/50 px-5 py-2 flex items-center gap-2 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1"
+            >
+                <BookMark />
+                <span>Glossary Index</span>
+            </div>
+
+            <nav class="relative px-6">
+                <div
+                    class="absolute left-6 top-4 h-[calc(100%-32px)] w-[1.5px] bg-blue-300"
+                    aria-hidden="true"
+                >
+                </div>
+
+                <ul
+                    id="glossary-list"
+                    class="space-y-0 overflow-hidden relative"
+                >
+                    {
+                        glossaryItems.map((item) => (
+                            <li class="relative group/item border-b border-blue-500/5 dark:border-blue-400/5 last:border-0 hover:bg-blue-500/[0.02] transition-colors">
+                                <a
+                                    href={item.url}
+                                    class="flex items-center gap-4 pl-4 pr-6 py-3 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 relative overflow-hidden"
+                                    title={item.term}
+                                >
+                                    <span class="shrink-0 w-6 h-6 flex items-center justify-center rounded-md bg-blue-500 text-white shadow-sm shadow-blue-500/20 transition-all duration-300 group-hover/item:scale-110">
+                                        <BookIcon dimension={15} />
+                                    </span>
+                                    <span class="flex-1 truncate transition-transform duration-300 group-hover/item:translate-x-1 font-bold text-[13px]">
+                                        {textCompress(item.term, 22)}
+                                    </span>
+                                    <span class="opacity-50 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300 text-blue-500/70">
+                                        <svg
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="3"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="m9 18 6-6-6-6" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+        </div>
+
+        <div
+            class="p-4 bg-slate-50/50 dark:bg-slate-950/50 border-t border-slate-200/50 dark:border-slate-800/50 flex flex-col gap-2"
+        >
             <a
                 href="https://github.com/Adam-Elmi/SomGlossary"
-                class="p-2 rounded-md bg-blue-500 w-full dark:bg-blue-600 dark:hover:bg-blue-700 text-center hover:bg-blue-600"
+                target="_blank"
+                class="flex items-center justify-center gap-2.5 w-full py-2.5 px-4 bg-slate-900 border border-slate-800 hover:bg-black dark:bg-blue-600 dark:border-blue-500 dark:hover:bg-blue-500 text-white rounded-xl font-bold text-sm shadow-sm transition-all active:scale-[0.98] group"
             >
-                <button
-                    class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
-                >
-                    <GithubIcon />
-                    Contribute
-                </button>
+                <GithubIcon
+                    class="transition-transform group-hover:rotate-12"
+                />
+                <span>Contribute</span>
             </a>
             <a
                 href="https://github.com/Adam-Elmi/SomGlossary/issues/new"
-                class="p-2 rounded-md bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-800 w-full text-center hover:bg-slate-900"
+                target="_blank"
+                class="flex items-center justify-center gap-2.5 w-full py-2.5 px-4 bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 shadow-sm transition-all active:scale-[0.98] group"
             >
-                <button
-                    class="text-slate-100 font-semibold cursor-pointer flex gap-3 justify-center items-center w-full"
-                >
-                    <IssueIcon />
-                    Issue
-                </button>
+                <IssueIcon
+                    class="text-red-500 transition-transform group-hover:scale-110"
+                />
+                <span>Report Issue</span>
             </a>
         </div>
     </aside>
 </div>
 
 <style is:inline>
+    #sidebar-parent {
+        transition: opacity 0.4s ease-in-out;
+    }
     #sidebar {
-        transition: transform 0.5s ease-in-out;
-        @media (max-width: 850px) {
-            #sidebar {
-                transform: translateX(-450px);
-            }
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (max-width: 850px) {
+        #sidebar {
+            transform: translateX(-100%);
         }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.1);
+        border-radius: 20px;
+    }
+    .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.2);
+    }
 </style>
+
+<script is:inline>
+    // Sidebar Search Logic
+    const sidebarSearch = document.getElementById("sidebar-search");
+    const glossaryList = document.getElementById("glossary-list");
+
+    if (sidebarSearch && glossaryList) {
+        sidebarSearch.addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const items = glossaryList.querySelectorAll("li");
+
+            items.forEach((li) => {
+                const term = li.innerText.toLowerCase();
+                if (term.includes(query)) {
+                    li.style.display = "block";
+                    li.style.opacity = "1";
+                    li.style.transform = "translateY(0)";
+                } else {
+                    li.style.display = "none";
+                    li.style.opacity = "0";
+                    li.style.transform = "translateY(5px)";
+                }
+            });
+        });
+    }
+</script>
+
 <script src="../js/handleSideBar.js"></script>
-<script src="../js/expandContent.js"></script>
