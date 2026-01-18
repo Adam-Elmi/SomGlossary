@@ -1,44 +1,76 @@
 ---
 layout: "../../layouts/SecondLayout.astro"
-title: Hello Welcome
-category: ["Languages", "Frameworks & Libraries"]
+term: "Adam"
+lastUpdated: "2024-01-01"
+lastPersonUpdated: "Adam"
+related: ["Elmi", "Test", "Hello"]
 ---
-
-import Block from "../../components/Block.astro";
 import Code from "../../components/Code.astro";
-import Terminal from "../../components/Terminal.astro";
+import Text from "../../components/Text.astro";
+import Image from "../../components/Image.astro";
+import Hightlight from "../../components/Hightlight.astro";
+import References from "../../components/References.astro";
+  
+<Image src="/images/smark.logo.png" alt="Smark Logo" caption="Smark Logo" />
 
-<Block title="Hello Adam">
-  Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna
-  wakhti badan ku bixisey daawashada casharro Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada casharro
 
+<References references={[{ text: "Google", link: "https://google.com" }, { text: "Google", link: "https://google.com" }]} />
+  
+<Text title="Tusaale">
+
+ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada 
+**<Hightlight highlight="blue">Adam</Hightlight>** casharro Tusaale ahaan, waxaa laga 
+*yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada casharro*
+link [Google](https://google.com)
+  
+</Text>
+
+  
+<Text>
+
+Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada 
+casharro Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada casharro
+  
+</Text>
+
+  
+<Text>
+
+Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada 
+casharro Tusaale ahaan, waxaa laga yaabaa inaad bil ka hor baratey luuqad cusub, aadna wakhti badan ku bixisey daawashada casharro
+  
+</Text>
+
+  
 <Code>
-    ```js
-    export default defineConfig({
-      markdown: {
-        shikiConfig: {
-          theme: "github-dark-dimmed",
-        },
-      },
 
-      devToolbar: {
-        enabled: false,
-      },
 
-      vite: {
-        plugins: [tailwindcss()],
-      },
-
-      integrations: [mdx()],
-    });
-
-    ```
+```js
+export default defineConfig({
+  markdown: {
+    shikiConfig: {
+      theme: "github-dark-dimmed",
+    },
+  },
+  devToolbar: {
+    enabled: false,
+  },
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  integrations: [mdx()],
+});
+```
+  
 </Code>
 
-<Terminal>
-    ```shell
-    npm install somglossary
-    ```
-</Terminal>
+  
+<Code filename="Terminal">
 
-</Block>
+
+```shell
+npm install somglossary
+```
+  
+</Code>
+
