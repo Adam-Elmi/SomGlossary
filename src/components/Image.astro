@@ -1,0 +1,153 @@
+---
+const { src, alt, caption } = Astro.props;
+---
+
+<div class="modern-image-component group/img relative my-2 w-full">
+    <div class="relative">
+        <div
+            class="relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-slate-800/60 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:shadow-2xl hover:border-blue-500/30"
+        >
+            <div
+                class="relative aspect-video flex items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-900"
+            >
+                <img
+                    src={src}
+                    alt={alt}
+                    class="main-img w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="absolute top-4 right-4 z-[100] flex gap-2 opacity-0 translate-y-2 group-hover/img:opacity-100 group-hover/img:translate-y-0 transition-all duration-300 pointer-events-none group-hover/img:pointer-events-auto"
+    >
+        <button
+            class="download-image p-2 rounded-xl bg-white/95 dark:bg-slate-900/95 text-slate-600 dark:text-slate-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 transition-all shadow-xl border border-slate-200/50 dark:border-slate-800/50 active:scale-90 cursor-pointer pointer-events-auto"
+            title="Download Image"
+            aria-label="Download Image"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                ></path><polyline points="7 10 12 15 17 10"></polyline><line
+                    x1="12"
+                    y1="15"
+                    x2="12"
+                    y2="3"></line></svg
+            >
+        </button>
+        <button
+            class="copy-base64 group/copybtn relative p-2 rounded-xl bg-white/95 dark:bg-slate-900/95 text-slate-600 dark:text-slate-400 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 transition-all shadow-xl border border-slate-200/50 dark:border-slate-800/50 active:scale-90 cursor-pointer pointer-events-auto"
+            title="Copy as Base64"
+            aria-label="Copy as Base64"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="16 18 22 12 16 6"></polyline><polyline
+                    points="8 6 2 12 8 18"></polyline></svg
+            >
+        </button>
+
+        <span
+            class="copy-feedback text-emerald-500 absolute bottom-full right-0 mb-3 px-2 py-1 bg-slate-900 text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 pointer-events-none transition-all duration-200 whitespace-nowrap"
+        >
+            Copied!
+        </span>
+    </div>
+</div>
+
+{
+    caption && (
+        <div class="mt-4 px-2">
+            <p class="text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 border-l-2 border-blue-500/40 pl-4 italic leading-relaxed">
+                {caption}
+            </p>
+        </div>
+    )
+}
+
+<script>
+    function setupImageInteractions() {
+        const containers = document.querySelectorAll(".modern-image-component");
+
+        containers.forEach((container) => {
+            const img = container.querySelector(
+                ".main-img",
+            ) as HTMLImageElement;
+            const downloadBtn = container.querySelector(".download-image");
+            const copyBtn = container.querySelector(".copy-base64");
+            const feedback = container.querySelector(".copy-feedback");
+
+            if (!img || !copyBtn) return;
+
+            const handleFeedback = () => {
+                if (!feedback) return;
+                feedback.classList.remove("opacity-0");
+                feedback.classList.add("opacity-100", "-translate-y-1");
+                setTimeout(() => {
+                    feedback.classList.add("opacity-0");
+                    feedback.classList.remove("opacity-100", "-translate-y-1");
+                }, 2000);
+            };
+
+            downloadBtn?.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                try {
+                    const response = await fetch(img.src);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = `somglossary-${img.alt?.replace(/\s+/g, "-").toLowerCase() || "image"}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                } catch (err) {
+                    console.error("Download failed", err);
+                }
+            });
+
+            copyBtn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                try {
+                    const response = await fetch(img.src);
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64data = reader.result as string;
+                        navigator.clipboard.writeText(base64data).then(() => {
+                            handleFeedback();
+                        });
+                    };
+                    reader.readAsDataURL(blob);
+                } catch (err) {
+                    console.error("Base64 copy failed", err);
+                }
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", setupImageInteractions);
+    document.addEventListener("astro:page-load", setupImageInteractions);
+</script>
