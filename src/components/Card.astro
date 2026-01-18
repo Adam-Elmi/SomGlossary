@@ -1,85 +1,108 @@
 ---
-import BookIcon from "../icons/BookIcon.astro";
-const { title, description, icon, label, data, link, index = 0 } = Astro.props;
-const colors = ["bg-sky-100", "bg-pink-100", "bg-emerald-100", "bg-amber-100"];
-const label_colors = [
-    "bg-sky-200/70",
-    "bg-pink-200/70",
-    "bg-emerald-200/70",
-    "bg-amber-200/70",
-];
+const {
+    title,
+    description,
+    icon,
+    label,
+    data,
+    link,
+    subLabel = "Updated",
+    index = 0,
+} = Astro.props;
+
 import CollectionIcon from "../icons/CollectionIcon.astro";
 import RandomIcon from "../icons/RandomIcon.astro";
 import NewIcon from "../icons/NewIcon.astro";
 import DateIcon from "../icons/DateIcon.astro";
 ---
 
-<li
-    class="w-[350px] min-h-[120px] shadow-md flex flex-col gap-2 dark:bg-slate-900/50 bg-white/50 border-2 dark:border-slate-700 border-slate-100 p-1 rounded-md overflow-hidden"
->
-    <div
-        class={`w-full h-full ${colors[index]} rounded-md p-2 flex gap-2 flex-col`}
+<li class="list-none max-w-[350px] w-full">
+    <a
+        href={link ?? "#"}
+        aria-label={`View ${title}`}
+        class="group relative block w-full overflow-hidden rounded-2xl border border-slate-200/50 dark:border-slate-800/50 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-500 hover:-translate-y-2 hover:border-blue-500/40"
     >
-        <span
-            class={`${label_colors[index]} rounded-2xl py-1 px-2 text-sm text-slate-600 w-fit`}
-            >{label}</span
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         >
-        <div class="flex gap-2 items-center">
-            <span>
-                {
-                    icon === "collection" ? (
-                        <CollectionIcon />
-                    ) : icon === "random" ? (
-                        <RandomIcon />
-                    ) : icon === "new" ? (
-                        <NewIcon />
-                    ) : (
-                        <DateIcon />
-                    )
-                }
-            </span>
-            <h2 class="text-sm font-semibold text-slate-800">{title}</h2>
         </div>
-        <p class="text-sm text-slate-600 flex gap-2">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 32 32"
+
+        <div class="relative p-5 flex flex-col gap-5">
+            <div class="flex items-start justify-between gap-4">
+                <span
+                    class="inline-flex items-center gap-2 py-1.5 px-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/10 dark:border-blue-500/20"
+                >
+                    <span class="w-1 h-1 rounded-full bg-blue-500 animate-pulse"
+                    ></span>
+                    {label}
+                </span>
+
+                <div
+                    class="w-11 h-11 rounded-xl bg-white/80 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 backdrop-blur-sm flex items-center justify-center border border-slate-200/60 dark:border-slate-700/40 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-blue-500/30"
+                >
+                    {
+                        icon === "collection" ? (
+                            <CollectionIcon />
+                        ) : icon === "random" ? (
+                            <RandomIcon />
+                        ) : icon === "new" ? (
+                            <NewIcon />
+                        ) : (
+                            <DateIcon />
+                        )
+                    }
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <h2
+                    class="text-lg font-bold text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-1"
+                >
+                    {title}
+                </h2>
+                <p
+                    class="text-sm leading-relaxed text-slate-600 dark:text-slate-300 italic font-medium line-clamp-2"
+                    title={description}
+                >
+                    {description}
+                </p>
+            </div>
+
+            <div
+                class="pt-4 mt-auto border-t border-slate-100 dark:border-slate-800/50 flex items-center justify-between gap-4"
             >
-                <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 7h22M5 13h14M5 19h22M5 25h14"></path>
-            </svg>
-            {description}
-        </p>
-    </div>
-    <div class="h-[50px] dark:text-white flex justify-between items-center p-2">
-        <span class="text-slate-500 italic font-mono text-sm">{data}</span>
-        <a href={link ? link : ""}>
-            <button
-                class="flex gap-2 items-center dark:bg-slate-800 bg-slate-100 dark:text-slate-400 text-slate-600 py-1 px-2 rounded-md border-[1.5px] dark:border-slate-600 border-slate-300 cursor-pointer"
-            >
-                View
-                <span>
+                <div class="flex flex-col gap-0.5">
+                    <span
+                        class="text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                        >{subLabel}</span
+                    >
+                    <span
+                        class="text-xs font-bold text-slate-600 dark:text-slate-300"
+                    >
+                        {data}
+                    </span>
+                </div>
+
+                <div
+                    class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 group-hover:text-blue-500 transition-all duration-300 translate-x-2 group-hover:translate-x-0"
+                >
+                    Explore
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
+                        width="14"
+                        height="14"
                         viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="transition-transform duration-300 group-hover:translate-x-1"
                     >
-                        <path
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            d="M2 12h20m-9-9l9 9l-9 9"></path>
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
-                </span>
-            </button>
-        </a>
-    </div>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
