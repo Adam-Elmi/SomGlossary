@@ -1,34 +1,46 @@
 ---
 import SearchIcon from "../icons/SearchIcon.astro";
-const {
-    maxWidth = "500px",
-    height = "auto",
-    showButton = false,
-    placeholder = "Search...",
-} = Astro.props;
+const { maxWidth = "550px", height = "auto", showPlaceholder = true } = Astro.props;
 ---
 
 <div
-    style={{ maxWidth: maxWidth ? maxWidth : "500px", height: height }}
+    style={{ maxWidth: maxWidth ? maxWidth : "550px" }}
     id="search-container"
-    class="w-full dark:bg-slate-900/10 dark:border-slate-700/50 border-2 p-1 border-slate-200 rounded-md bg-white flex gap-2 items-center"
+    class="group relative w-full h-11 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-300 hover:border-blue-500/40 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:scale-[1.01] cursor-pointer overflow-hidden flex items-center"
 >
-    <span id="search-icon" class="pl-2 cursor-pointer">
-        <SearchIcon color="#ddd" />
-    </span>
-    <input
-        readonly="true"
-        id="search-input"
-        type="search"
-        class="w-full max-w-full p-2 rounded-md outline-none dark:text-slate-50 italic font-[500]"
-        placeholder={placeholder}
-    />
-    {
-        showButton ? (
-            <button class="bg-blue-500 dark:bg-gradient-to-r from-blue-800 to-indigo-900 dark:border-slate-700 font-bold italic p-2 rounded-md text-slate-100 cursor-pointer hover:bg-blue-600 border-[1.5px] border-slate-200">
-                Search
-            </button>
-        ) : null
-    }
+    <div
+        class="absolute inset-0 bg-gradient-to-tr from-blue-500/5 to-transparent dark:from-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"
+    >   
+    </div>
+
+    <div class="relative flex-1 flex items-center gap-3 px-4">
+        <span
+            id="search-icon"
+            class="shrink-0 text-slate-400 group-hover:text-blue-500 transition-all duration-300 scale-100 group-hover:scale-110"
+        >
+            <SearchIcon dimension={18} />
+        </span>
+
+        <input
+            readonly="true"
+            id="search-input"
+            type="text"
+            placeholder={showPlaceholder ? "Search..." : ""}
+            class="flex-1 min-w-0 bg-transparent outline-none text-slate-700 dark:text-slate-200 placeholder:text-slate-400 font-semibold text-sm cursor-pointer"
+        />
+
+        <div
+            class="hidden md:flex shrink-0 items-center gap-1.5 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-[10px] font-bold text-slate-400 transition-colors group-hover:border-blue-500/30 group-hover:text-blue-500/70 shadow-sm uppercase tracking-tighter"
+        >
+            <span class="text-xs">⌘</span>
+            <span>K</span>
+        </div>
+    </div>
+
+    <div
+        class="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+    >
+    </div>
 </div>
+
 <script src="../js/handleSearch.js"></script>
