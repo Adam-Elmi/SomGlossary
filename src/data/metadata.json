@@ -1,0 +1,23 @@
+{
+  "src/pages/glossary/adam.mdx": {
+    "lastUpdated": "2025-08-30",
+    "lastPersonUpdated": "Adam-Elmi",
+    "hash": "94731c276077fca29ba3deea04df98c5b39917b1",
+    "commitUrl": "https://github.com/Adam-Elmi/SomGlossary/commit/94731c276077fca29ba3deea04df98c5b39917b1",
+    "dateAdded": "2025-06-15T23:08:10+03:00"
+  },
+  "src/pages/glossary/test.mdx": {
+    "lastUpdated": "2025-06-20",
+    "lastPersonUpdated": "Adam-Elmi",
+    "hash": "4bbcabe53fa578f0e97fa252427058e78c0cd6c6",
+    "commitUrl": "https://github.com/Adam-Elmi/SomGlossary/commit/4bbcabe53fa578f0e97fa252427058e78c0cd6c6",
+    "dateAdded": "2025-06-12T23:17:41+03:00"
+  },
+  "src/pages/glossary/welcome.mdx": {
+    "lastUpdated": "2025-06-20",
+    "lastPersonUpdated": "Adam-Elmi",
+    "hash": "2e0c029c92049388f20a05fb35125c0430f1359a",
+    "commitUrl": "https://github.com/Adam-Elmi/SomGlossary/commit/2e0c029c92049388f20a05fb35125c0430f1359a",
+    "dateAdded": "2025-06-12T23:17:41+03:00"
+  }
+}
