@@ -2,14 +2,261 @@
 import Layout from "./MainLayout.astro";
 import SideBar from "../components/SideBar.astro";
 import Nav from "../components/Nav.astro";
+import RelatedTerms from "../components/RelatedTerms.astro";
+import metadata from "../data/metadata.json";
+import path from "path";
+import { formatDate } from "../helpers/formatDate";
+import Block from "../components/Block.astro";
+import GithubIcon from "../icons/GithubIcon.astro";
+
+const { frontmatter, file } = Astro.props;
+const relativePath = file ? path.relative(process.cwd(), file) : "";
+const fileMetadata = (metadata as Record<string, any>)[relativePath] || {};
+
+const term = frontmatter?.term || Astro.props.term;
+const lastUpdated =
+    fileMetadata.lastUpdated ||
+    frontmatter?.lastUpdated ||
+    Astro.props.lastUpdated;
+const lastPersonUpdated =
+    fileMetadata.lastPersonUpdated ||
+    frontmatter?.lastPersonUpdated ||
+    Astro.props.lastPersonUpdated;
+const related = frontmatter?.related || Astro.props.related || [];
+const commitUrl =
+    fileMetadata.commitUrl || frontmatter?.commitUrl || Astro.props.commitUrl;
 ---
 
-<Layout title="Glossary">
+<Layout title={term}>
     <div class="relative flex w-full">
         <SideBar />
-        <div class="ml-[300px] w-full max-[850px]:ml-0 flex flex-col">
+        <div
+            class="ml-[300px] w-full max-[850px]:ml-0 flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950"
+        >
             <Nav />
-            <slot />
+            <header
+                class="relative overflow-hidden bg-slate-900 border-b border-slate-800 p-8 sm:p-10"
+            >
+                <div class="absolute inset-0 z-0 pointer-events-none">
+                    <div
+                        class="absolute top-0 right-0 p-20 bg-blue-500/10 blur-[100px] rounded-full"
+                    >
+                    </div>
+
+                    <svg
+                        class="absolute inset-0 w-full h-full opacity-[0.15]"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <defs>
+                            <pattern
+                                id="dot-pattern"
+                                width="24"
+                                height="24"
+                                patternUnits="userSpaceOnUse"
+                            >
+                                <circle
+                                    cx="2"
+                                    cy="2"
+                                    r="1.5"
+                                    fill="currentColor"
+                                    class="text-white"></circle>
+                            </pattern>
+                            <mask id="fade-mask">
+                                <radialGradient
+                                    id="fade-grad"
+                                    cx="50%"
+                                    cy="0%"
+                                    r="100%"
+                                    fx="50%"
+                                    fy="0%"
+                                >
+                                    <stop
+                                        offset="0%"
+                                        stop-color="white"
+                                        stop-opacity="1"></stop>
+                                    <stop
+                                        offset="100%"
+                                        stop-color="white"
+                                        stop-opacity="0"></stop>
+                                </radialGradient>
+                                <rect
+                                    width="100%"
+                                    height="100%"
+                                    fill="url(#fade-grad)"></rect>
+                            </mask>
+                        </defs>
+                        <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#dot-pattern)"
+                            mask="url(#fade-mask)"></rect>
+                    </svg>
+                </div>
+                <div class="relative z-10 flex flex-col gap-6 max-w-4xl">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="p-3 bg-blue-600/20 rounded-xl border border-blue-500/30 text-blue-400"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-book"
+                            >
+                                <path
+                                    d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h1
+                            class="text-3xl sm:text-4xl font-bold text-white tracking-tight flex-1 min-w-0 break-words"
+                        >
+                            {term}
+                        </h1>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 mt-2">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 text-xs font-medium text-slate-300 backdrop-blur-sm transition-colors hover:bg-slate-800/70 hover:border-slate-600"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-blue-400"
+                            >
+                                <rect
+                                    width="18"
+                                    height="18"
+                                    x="3"
+                                    y="4"
+                                    rx="2"
+                                    ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>
+                                <span class="text-blue-400">Updated:</span>
+                                <span class="text-slate-100"
+                                    >{formatDate(lastUpdated)}</span
+                                >
+                            </span>
+                        </div>
+
+                        {
+                            commitUrl ? (
+                                <a
+                                    href={commitUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 text-xs font-medium text-slate-300 backdrop-blur-sm transition-colors hover:bg-slate-800/70 hover:border-slate-600 hover:text-blue-300 group"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="text-purple-400 group-hover:text-purple-300"
+                                    >
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <span>
+                                        <span class="text-blue-400 group-hover:text-blue-300">
+                                            Updated by:
+                                        </span>
+                                        <span class="text-slate-100 group-hover:text-white">
+                                            {lastPersonUpdated}
+                                        </span>
+                                    </span>
+                                </a>
+                            ) : (
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 text-xs font-medium text-slate-300 backdrop-blur-sm transition-colors hover:bg-slate-800/70 hover:border-slate-600">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="text-purple-400"
+                                    >
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <span>
+                                        <span class="text-blue-400">
+                                            Updated by:
+                                        </span>
+                                        <span class="text-slate-100">
+                                            {lastPersonUpdated}
+                                        </span>
+                                    </span>
+                                </div>
+                            )
+                        }
+
+                        <a
+                            href={commitUrl
+                                ? `${commitUrl.split("/commit/")[0]}/edit/main/${relativePath}`
+                                : `https://github.com/Adam-Elmi/SomGlossary/edit/master/${relativePath}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 text-xs font-medium text-slate-300 backdrop-blur-sm transition-colors hover:bg-slate-800/70 hover:border-slate-600 hover:text-white group"
+                        >
+                            <GithubIcon dimension="14" />
+                            <span
+                                class="decoration-1 underline underline-offset-2 decoration-slate-500 group-hover:decoration-white transition-all"
+                                >Edit this page</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <main
+                id="main-content"
+                class="flex flex-col xl:flex-row gap-8 p-6 sm:p-8 max-w-[1600px]"
+            >
+                <article
+                    class="flex-1 min-w-0 prose prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-500"
+                >
+                    <Block>
+                        <slot />
+                    </Block>
+                </article>
+                <aside class="w-full xl:w-80 shrink-0 flex flex-col gap-6">
+                    <div class="sticky top-24">
+                        <RelatedTerms related={related} />
+                    </div>
+                </aside>
+            </main>
         </div>
     </div>
 </Layout>
+
+<style is:inline>
+    .Text-component a {
+        text-decoration: underline;
+        color: rgb(58, 109, 219);
+    }
+</style>
