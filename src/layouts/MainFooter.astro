@@ -1,54 +1,151 @@
 ---
 import GithubIcon from "../icons/GithubIcon.astro";
 import DiscordIcon from "../icons/DiscordIcon.astro";
+import LogoIcon from "../icons/LogoIcon.astro";
+import CopyrightIcon from "../icons/CopyrightIcon.astro";
+
 const sections: string[] = ["Home", "Glossary"];
 const { is_there_sidebar = true } = Astro.props;
 ---
 
 <footer
-    class={`${is_there_sidebar ? "ml-[300px]" : "ml-0"} dark:bg-slate-900 dark:border-t-slate-800 dark:border-b-blue-600 max-[850px]:ml-0 bg-blue-50 min-h-[100px] flex py-2 px-4 justify-center items-center border-b-8 border-blue-400 border-t-2 border-t-slate-200 flex-wrap max-[600px]:flex-col`}
+    class={`${is_there_sidebar ? "md:ml-[300px]" : "ml-0"} relative z-10 dark:bg-slate-950/80 bg-white/80 backdrop-blur-2xl border-t border-slate-300/60 dark:border-slate-800/60 flex flex-col pt-20 pb-12 px-10 gap-16 overflow-hidden`}
 >
-    <ul
-        class="flex gap-5 flex-wrap justify-center items-center max-[600px]:gap-4 max-[600px]:mb-5"
-    >
-        {
-            sections
-                ? sections.map((section) => (
-                      <li>
-                          <a
-                              class="text-slate-400 italic"
-                              href={
-                                  section === "Home"
-                                      ? "/"
-                                      : "/" + section.toLowerCase()
-                              }
-                          >
-                              {section}
-                          </a>
-                      </li>
-                  ))
-                : null
-        }
-    </ul>
     <div
-        class="flex gap-3 flex-1 justify-end flex-wrap items-center max-[600px]:justify-center"
+        class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[140px] rounded-full pointer-events-none"
     >
-        <span class="text-slate-400 italic"
-            >&copy; <a
-                href="https://github.com/Adam-Elmi"
-                target="_blank"
-                class="mr-2">Adam Elmi</a
+    </div>
+
+    <div
+        class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start gap-12 relative z-10"
+    >
+        <div class="flex flex-col gap-6 items-center lg:items-start">
+            <a href="/" class="group flex items-center gap-3">
+                <div
+                    class="p-2 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 shadow-sm group-hover:scale-110 transition-transform duration-500 flex items-center justify-center"
+                >
+                    <LogoIcon width={28} height={28} class="drop-shadow-sm" />
+                </div>
+                <span
+                    style={{ fontFamily: "Grand Hotel" }}
+                    class="text-2xl text-slate-800 dark:text-white tracking-wide"
+                    >SomGlossary</span
+                >
+            </a>
+            <p
+                class="max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400 text-center lg:text-left"
             >
-            {new Date().getFullYear()}
-        </span>
-        <a
-            href="https://github.com/Adam-Elmi/SomGlossary"
-            class="dark:text-white"
+                A comprehensive Somali tech glossary created by
+                <a
+                    href="https://github.com/Adam-Elmi"
+                    class="text-slate-900 dark:text-slate-200 font-medium hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                    >Adam Elmi</a
+                > to solve the lack of Somali tech resources and help the Somali community
+                get a tech resource.
+            </p>
+        </div>
+
+        <div
+            class="flex flex-col md:flex-row items-center lg:items-start gap-12 md:gap-24"
         >
-            <GithubIcon dimension={30} />
-        </a>
-        <a href="https://discord.com/users/adamcade">
-            <DiscordIcon />
-        </a>
+            <div class="flex flex-col gap-6 items-center lg:items-start">
+                <h3
+                    class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 text-center lg:text-left"
+                >
+                    Navigation
+                </h3>
+                <nav>
+                    <ul
+                        class="flex md:flex-col gap-6 items-center lg:items-start"
+                    >
+                        {
+                            sections.map((section) => (
+                                <li>
+                                    <a
+                                        class="text-sm font-bold text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 transition-all flex items-center gap-2 group"
+                                        href={
+                                            section === "Home"
+                                                ? "/"
+                                                : "/" + section.toLowerCase()
+                                        }
+                                    >
+                                        <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-800 group-hover:bg-blue-500 transition-colors" />
+                                        {section}
+                                    </a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="flex flex-col gap-6 items-center lg:items-start">
+                <h3
+                    class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 text-center lg:text-left"
+                >
+                    Community
+                </h3>
+                <div class="flex flex-col gap-5 items-center lg:items-start">
+                    <a
+                        href="https://discord.com/users/adamcade"
+                        target="_blank"
+                        class="group flex flex-col md:flex-row items-center gap-4 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-[#5865F2] transition-all"
+                    >
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 group-hover:bg-[#5865F2]/10 group-hover:border-[#5865F2]/30 transition-all shadow-sm"
+                        >
+                            <DiscordIcon dimension={20} />
+                        </div>
+                        <div class="flex flex-col items-center lg:items-start">
+                            <span class="leading-none">Discord</span>
+                            <span
+                                class="text-[10px] text-slate-400 font-medium"
+                                >Contact me</span
+                            >
+                        </div>
+                    </a>
+                    <a
+                        href="https://github.com/Adam-Elmi/SomGlossary"
+                        target="_blank"
+                        class="group flex flex-col md:flex-row items-center gap-4 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-all"
+                    >
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 group-hover:bg-blue-500/10 group-hover:border-blue-500/30 transition-all shadow-sm"
+                        >
+                            <GithubIcon dimension={20} />
+                        </div>
+                        <div class="flex flex-col items-center lg:items-start">
+                            <span class="leading-none">GitHub</span>
+                            <span
+                                class="text-[10px] text-slate-400 font-medium"
+                                >Contribute now</span
+                            >
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="w-full max-w-7xl mx-auto pt-10 border-t border-slate-200/40 dark:border-slate-800/40 flex flex-col sm:flex-row justify-between items-center gap-6 relative z-10"
+    >
+        <div
+            class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500"
+        >
+            <CopyrightIcon dimension={14} />
+            {new Date().getFullYear()}
+            <a
+                href="https://github.com/Adam-Elmi/SomGlossary"
+                target="_blank"
+                class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all font-bold"
+                >Adam Elmi</a
+            >. All Rights Reserved.
+        </div>
+    </div>
+
+    <div
+        class="absolute bottom-0 inset-x-0 h-[15px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
+    >
     </div>
 </footer>
