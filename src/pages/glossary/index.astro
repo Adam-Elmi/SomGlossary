@@ -1,1 +1,142 @@
-<h1>Hello Adam</h1>
+---
+import Layout from "../../layouts/MainLayout.astro";
+import Nav from "../../components/Nav.astro";
+import SearchIcon from "../../icons/SearchIcon.astro";
+import BookIcon from "../../icons/BookIcon.astro";
+
+// Fetch all glossary terms
+const matches = import.meta.glob("./*.mdx", { eager: true });
+const terms = Object.values(matches)
+    .map((file: any) => ({
+        url: file.url,
+        term: file.frontmatter.term,
+        description: file.frontmatter.description || "",
+    }))
+    .filter((item) => item.term)
+    .sort((a, b) => a.term.localeCompare(b.term));
+---
+
+<Layout title="Glossary | SomGlossary" is_there_sidebar={false}>
+    <div
+        class="relative flex w-full overflow-hidden min-h-screen bg-slate-50/50 dark:bg-slate-950/20"
+    >
+        <div class="w-full flex-1 flex flex-col h-full">
+            <Nav />
+
+            <main
+                class="flex-1 px-6 py-8 max-w-7xl mx-auto w-full flex flex-col gap-8"
+            >
+                <!-- Header Section -->
+                <div class="flex flex-col items-center gap-4 text-center py-6">
+                    <span
+                        class="px-4 py-1.5 rounded-full bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/10 dark:border-blue-500/20 text-[10px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400"
+                    >
+                        Knowledge Base
+                    </span>
+                    <h1
+                        class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+                    >
+                        Eray-bixinta <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400"
+                            >SomGlossary</span
+                        >
+                    </h1>
+                </div>
+
+                <!-- Search Section -->
+                <div class="w-full max-w-xl mx-auto relative group z-10">
+                    <div
+                        class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                    >
+                        <SearchIcon dimension={20} />
+                    </div>
+                    <input
+                        id="page-search"
+                        type="text"
+                        placeholder="Raadi eray..."
+                        class="w-full pl-12 pr-6 py-3 text-base bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] dark:text-white dark:placeholder:text-slate-600"
+                        autofocus
+                    />
+                    <div
+                        class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-bold text-slate-400"
+                    >
+                        {terms.length} Terms
+                    </div>
+                </div>
+
+                <!-- Terms Grid (Denser) -->
+                <div
+                    id="terms-grid"
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4"
+                >
+                    {
+                        terms.map((item) => (
+                            <a
+                                href={item.url}
+                                class="term-card group relative p-4 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-all duration-300 flex flex-col gap-2 hover:-translate-y-1"
+                                data-term={item.term.toLowerCase()}
+                            >
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shrink-0">
+                                        <BookIcon dimension={16} />
+                                    </div>
+                                    <h2 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+                                        {item.term}
+                                    </h2>
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+
+                <!-- No Results State -->
+                <div
+                    id="no-results"
+                    class="hidden flex-col items-center justify-center py-20 text-slate-400 dark:text-slate-600"
+                >
+                    <div
+                        class="w-16 h-16 mb-4 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center"
+                    >
+                        <SearchIcon dimension={32} />
+                    </div>
+                    <p class="text-lg font-medium">
+                        No terms found matching your search.
+                    </p>
+                </div>
+            </main>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    const searchInput = document.getElementById(
+        "page-search",
+    ) as HTMLInputElement;
+    const grid = document.getElementById("terms-grid");
+    const cards = document.querySelectorAll(".term-card");
+    const noResults = document.getElementById("no-results");
+
+    if (searchInput && grid && cards) {
+        searchInput.addEventListener("input", (e) => {
+            const query = (e.target as HTMLInputElement).value
+                .toLowerCase()
+                .trim();
+            let hasVisible = false;
+
+            cards.forEach((card) => {
+                const term = (card as HTMLElement).dataset.term || "";
+                if (term.includes(query)) {
+                    (card as HTMLElement).style.display = "flex";
+                    hasVisible = true;
+                } else {
+                    (card as HTMLElement).style.display = "none";
+                }
+            });
+
+            if (noResults) {
+                noResults.style.display = hasVisible ? "none" : "flex";
+                grid.style.display = hasVisible ? "grid" : "none";
+            }
+        });
+    }
+</script>
