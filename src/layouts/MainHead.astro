@@ -8,11 +8,23 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/somglossary.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-          const theme = localStorage.getItem("theme") || "light";
-           document.documentElement.setAttribute("data-theme", theme);
-        });
+    <script is:inline>
+        (function () {
+            const savedTheme = localStorage.getItem("theme");
+            const systemTheme = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+            ).matches
+                ? "dark"
+                : "light";
+            const theme = savedTheme || systemTheme;
+            document.documentElement.setAttribute("data-theme", theme);
+
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
