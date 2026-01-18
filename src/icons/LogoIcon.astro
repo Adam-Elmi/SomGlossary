@@ -1,0 +1,42 @@
+---
+const { class: className, width = 28, height = 28 } = Astro.props;
+---
+
+<svg
+    width={width}
+    height={height}
+    viewBox="0 0 145 254"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class={className}
+>
+    <mask
+        id="mask0_logo"
+        style="mask-type:luminance"
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="145"
+        height="254"
+    >
+        <path d="M0 0H144.634V254H0V0Z" fill="white"></path>
+    </mask>
+    <g mask="url(#mask0_logo)">
+        <path
+            d="M109.71 0C112.972 16.0982 104.805 32.7077 93.0373 44.2972C81.2701 55.9177 66.2172 63.6181 51.8638 71.8919C37.479 80.1734 23.1178 89.617 14.1018 103.414C6.24124 115.414 3.02628 129.793 1.38343 143.97C-0.668174 161.184 -0.385194 179.234 5.16435 195.433C9.19681 185.664 14.4634 176.321 20.4452 167.59C32.2125 150.4 46.6994 135.231 61.1078 120.148C77.9608 102.523 94.7824 84.9301 111.635 67.3134C94.1928 99.5176 67.1683 125.485 44.3334 154.219C21.4986 182.984 2.02799 217.31 4.1582 253.768C5.85608 235.105 21.2156 220.293 37.8878 211.283C54.56 202.273 73.2288 197.23 89.6495 187.818C120.699 169.992 141.584 136.021 143.203 100.625C144.846 64.8344 128.276 30.7787 109.71 0Z"
+            fill="url(#paint_logo)"></path>
+    </g>
+    <defs>
+        <linearGradient
+            id="paint_logo"
+            x1="71.7641"
+            y1="0"
+            x2="71.7641"
+            y2="253.768"
+            gradientUnits="userSpaceOnUse"
+        >
+            <stop stop-color="#2B7FFF"></stop>
+            <stop offset="1" stop-color="#1A4C99"></stop>
+        </linearGradient>
+    </defs>
+</svg>
