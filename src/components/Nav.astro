@@ -15,57 +15,95 @@ function is_homepage() {
 
 <nav
     id="nav-bar"
-    class="flex dark:bg-slate-900 dark:border-b-slate-800 gap-3 items-center px-2 py-2 bg-slate-50 shadow-sm justify-between border-b border-slate-200"
+    class="sticky top-0 z-[50] flex items-center justify-between px-6 py-3 bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm transition-all duration-300"
 >
-    <div class="flex gap-4 justify-center items-center">
-        <button id="menu-btn" class="max-[850px]:flex hidden cursor-pointer">
-            <MenuIcon dimension={34} color="oklch(70.7% 0.165 254.624)" />
+    <div class="flex items-center gap-4">
+        <button
+            id="menu-btn"
+            class="max-[850px]:flex hidden cursor-pointer p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Toggle Menu"
+        >
+            <MenuIcon dimension={28} color="oklch(70.7% 0.165 254.624)" />
         </button>
-        <div class="flex gap-3 items-center">
+
+        <div class="flex items-center gap-2">
             {
-                is_homepage() ? null : (
-                    <button
+                !is_homepage() && (
+                    <a
+                        href="/"
                         title="Home"
-                        class="text-blue-500 cursor-pointer hover:text-blue-900 mx-2"
+                        class="flex items-center justify-center p-2 rounded-xl text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all active:scale-95"
                     >
-                        <a href="/">
-                            <HomeIcon />
-                        </a>
-                    </button>
+                        <HomeIcon />
+                    </a>
                 )
             }
         </div>
     </div>
-    <div class="relative flex items-center gap-5 w-full justify-end">
-        <SearchComponent height="30px" maxWidth="50px"/>
-        <button id="theme-btn" title="Theme" class="cursor-pointer">
-            <ThemeIcon dimension="32" />
-        </button>
+
+    <div class="flex items-center gap-4">
         <div
-            id="theme-container"
-            class="hidden dark:bg-slate-900 dark:text-white absolute top-[120%] right-0 flex-col gap-4 bg-white p-2 border-2 border-indigo-200 rounded-md shadow-md"
+            class="flex items-center h-9 px-1 rounded-2xl"
         >
+            <SearchComponent
+                height="28px"
+                maxWidth="50px"
+                showPlaceholder={false}
+            />
+        </div>
+
+        <div class="relative">
             <button
-                id="light-mode-btn"
-                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
+                id="theme-btn"
+                title="Theme"
+                class="flex items-center justify-center p-2 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
             >
-                <SunIcon dimension="28" color="oklch(85.2% 0.199 91.936)" />
-                Light Mode
+                <ThemeIcon dimension="24" />
             </button>
-            <button
-                id="dark-mode-btn"
-                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
+
+            <div
+                id="theme-container"
+                class="hidden absolute top-[calc(100%+12px)] right-0 min-w-[200px] flex-col p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-2xl z-[100] animate-in fade-in slide-in-from-top-4 duration-300"
             >
-                <MoonIcon dimenstion="20" color="oklch(58.5% 0.233 277.117)" />
-                Dark Mode
-            </button>
-            <button
-                id="default-mode-btn"
-                class="text-start flex gap-2 items-center cursor-pointer italic p-2 border-2 border-transparent hover:border-indigo-300 rounded-md"
-            >
-                <DefaultModeIcon color="#aad" />
-                System default
-            </button>
+                <button
+                    id="light-mode-btn"
+                    class="group flex items-center gap-3 w-full px-4 py-3 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-colors cursor-pointer text-sm font-bold text-slate-600 dark:text-slate-300"
+                >
+                    <div
+                        class="p-1.5 rounded-lg bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 group-hover:bg-yellow-400 group-hover:text-white transition-colors"
+                    >
+                        <SunIcon dimension="18" />
+                    </div>
+                    Light Mode
+                </button>
+
+                <button
+                    id="dark-mode-btn"
+                    class="group flex items-center gap-3 w-full px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-colors cursor-pointer text-sm font-bold text-slate-600 dark:text-slate-300"
+                >
+                    <div
+                        class="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-white transition-colors"
+                    >
+                        <MoonIcon dimension="18" />
+                    </div>
+                    Dark Mode
+                </button>
+
+                <div class="h-px bg-slate-100 dark:bg-slate-800 my-1 mx-2">
+                </div>
+
+                <button
+                    id="default-mode-btn"
+                    class="group flex items-center gap-3 w-full px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer text-sm font-bold text-slate-500 dark:text-slate-400"
+                >
+                    <div
+                        class="p-1.5 rounded-lg bg-slate-500/10 text-slate-500 border border-slate-500/20 group-hover:bg-slate-500 group-hover:text-white transition-colors"
+                    >
+                        <DefaultModeIcon dimension="18" />
+                    </div>
+                    System default
+                </button>
+            </div>
         </div>
     </div>
 </nav>
