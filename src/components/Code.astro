@@ -1,10 +1,11 @@
 ---
 import Copy2Icon from "../icons/Copy2Icon.astro";
-const { filename = "" } = Astro.props;
+const { filename = "", width = "100%", height = "auto" } = Astro.props;
 ---
 
 <div
-    class="code-block-container w-full max-w-[1000px] my-6 rounded-md overflow-hidden bg-[#0d1117] border border-[#30363d] shadow-lg"
+    class="code-block-container max-w-[1000px] my-6 rounded-md overflow-hidden bg-[#0d1117] border border-[#30363d] shadow-lg"
+    style={{ width, height }}
 >
     <div
         class="flex items-center justify-between px-4 py-2 bg-[#161b22] border-b border-[#30363d]"
