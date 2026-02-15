@@ -4,10 +4,13 @@ import ViewSection from "./ViewSection.astro";
 import LanguageIcon from "../icons/LanguageIcon.astro";
 import BookIcon from "../icons/BookIcon.astro";
 import OpenSourceIcon from "../icons/OpenSourceIcon.astro";
-import Card from "./Card.astro";
-import { advantages, getHighlights } from "../helpers/data";
 
-const highlights = getHighlights();
+import { advantages } from "../helpers/data";
+import CodeWrapper from "./Code.astro";
+import { Code } from "astro/components";
+
+
+
 ---
 
 <div class="w-full ml-[300px] mr-0 max-[850px]:ml-0 flex-1 overflow-hidden min-h-screen bg-slate-50/50 dark:bg-slate-950/20">
@@ -59,35 +62,31 @@ const highlights = getHighlights();
             }
         </ul>
 
-        <div class="flex flex-col items-center gap-3 my-5">
-            <span class="px-4 py-1.5 rounded-full bg-amber-500/5 dark:bg-amber-500/10 border border-amber-500/10 dark:border-amber-500/20 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
-                Featured Content
+        <div class="flex flex-col items-center gap-3 my-16">
+            <span class="px-4 py-1.5 rounded-full bg-slate-500/10 dark:bg-slate-500/20 border border-slate-500/10 dark:border-slate-500/20 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
+                Participation
             </span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight text-center px-4">
-                Glossary <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Highlights</span>
+                Ka qayb qaado <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">SomGlossary</span>
             </h2>
-        </div>
+            <p class="mt-4 max-w-2xl text-center text-slate-600 dark:text-slate-400 leading-relaxed">
+                SomGlossary waa mashruuc furan (open source). Waxaad naga caawin kartaa inaan ballaarino qaamuuska.
+            </p>
 
-        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6 max-w-7xl mx-auto items-center justify-items-center">
-            {
-                highlights && highlights.length > 0 ? (
-                    highlights.map(({ title, description, icon, label, data, link }, i) => (
-                        <Card
-                            {title}
-                            {label}
-                            {description}
-                            {data}
-                            {link}
-                            {icon}
-                            index={i}
-                        />
-                    ))
-                ) : (
-                    <div class="col-span-full py-20 flex flex-col items-center justify-center gap-4 text-slate-400">
-                        <p class="text-sm font-medium">No highlights available yet.</p>
-                    </div>
-                )
-            }
-        </ul>
+            <div class="w-full max-w-3xl px-6 mt-8 flex justify-center">
+                <CodeWrapper filename="Terminal">
+                    <Code code={`git clone https://github.com/Adam-Elmi/SomGlossary
+cd SomGlossary
+
+# Using Bun
+bun install
+bun dev
+
+# Or Using NPM
+npm install
+npm run dev`} lang="bash" theme="github-dark" />
+                </CodeWrapper>
+            </div>
+        </div>
     </div>
 </div>

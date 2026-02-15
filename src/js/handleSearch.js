@@ -1,37 +1,46 @@
-const searchInputs = document.querySelectorAll("#search-input");
-const searchIcons = document.querySelectorAll("#search-icon");
-const resultBackground =
-    document.getElementById("result-background");
-if (searchInputs && resultBackground) {
-    resultBackground.style.transform = "translateY(-100vh)";
-    searchInputs.forEach((input) => {
-        input.addEventListener("focus", () => {
-            showSearchBar(resultBackground);
-        });
-    });
-    searchIcons.forEach((icon) => {
-        icon.addEventListener("click", () => {
-            showSearchBar(resultBackground);
-        });
-    });
-}
-function showSearchBar(resultBackground) {
+
+const searchTriggers = document.querySelectorAll(".search-trigger");
+const resultBackground = document.getElementById("result-background");
+const searchModal = document.getElementById("search-modal");
+const functionalInput = document.getElementById("functional-search-input");
+
+function showSearchBar() {
+    if (!resultBackground || !searchModal) return;
+
     resultBackground.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    // Trigger animations
     setTimeout(() => {
-        resultBackground.style.transform = "translateY(0)";
-    }, 100);
+        resultBackground.classList.remove("opacity-0");
+        searchModal.classList.remove("scale-95");
+
+        if (functionalInput) {
+            functionalInput.focus();
+        }
+    }, 10);
 }
 
-const searchContainers = document.querySelectorAll("#search-container");
-if (searchContainers && searchInputs) {
-    searchInputs.forEach((input, index) => {
-        input.addEventListener("focus", () => {
-            searchContainers[index].style.outline =
-                "2px solid oklch(70.7% 0.165 254.624)";
-        });
-        input.addEventListener("blur", () => {
-            searchContainers[index].style.outline =
-                "none";
-        });
+if (searchTriggers && resultBackground) {
+    searchTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", showSearchBar);
+
+        // Handle focus on input
+        const input = trigger.querySelector("input");
+        if (input) {
+            input.addEventListener("focus", (e) => {
+                e.preventDefault();
+                input.blur();
+                showSearchBar();
+            });
+        }
     });
 }
+
+// Global Keyboard Shortcut (⌘K or Ctrl+K)
+window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        showSearchBar();
+    }
+});
